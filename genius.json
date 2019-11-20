@@ -1,0 +1,374 @@
+{
+  "meta": {
+    "status": 200
+  },
+  "response": {
+    "hits": [
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 8,
+          "api_path": "/songs/4696506",
+          "full_title": "Kenny G by\u00a0Matu\u00ea",
+          "header_image_thumbnail_url": "https://images.genius.com/e421e1de44cc04b6e8ce54ad367be1e0.300x300x1.png",
+          "header_image_url": "https://images.genius.com/e421e1de44cc04b6e8ce54ad367be1e0.500x500x1.png",
+          "id": 4696506,
+          "lyrics_owner_id": 5155061,
+          "lyrics_state": "complete",
+          "path": "/Matue-kenny-g-lyrics",
+          "pyongs_count": 3,
+          "song_art_image_thumbnail_url": "https://images.genius.com/e421e1de44cc04b6e8ce54ad367be1e0.300x300x1.png",
+          "song_art_image_url": "https://images.genius.com/e421e1de44cc04b6e8ce54ad367be1e0.500x500x1.png",
+          "stats": {
+            "unreviewed_annotations": 2,
+            "hot": false,
+            "pageviews": 19900
+          },
+          "title": "Kenny G",
+          "title_with_featured": "Kenny G",
+          "url": "https://genius.com/Matue-kenny-g-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/1076166",
+            "header_image_url": "https://images.genius.com/c49848729493ae77e66cb44788c33b2e.1000x1000x1.jpg",
+            "id": 1076166,
+            "image_url": "https://images.genius.com/e2b61cc7e95940b841284cd81067162a.1000x1000x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": true,
+            "name": "Matu\u00ea",
+            "url": "https://genius.com/artists/Matue",
+            "iq": 1094
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 0,
+          "api_path": "/songs/4247964",
+          "full_title": "Calend\u00e1rio de Lan\u00e7amento de Singles Setembro 2019 by\u00a0Genius\u00a0Brasil",
+          "header_image_thumbnail_url": "https://images.genius.com/d0660243d78906fbaca5180319a79f44.300x300x1.png",
+          "header_image_url": "https://images.genius.com/d0660243d78906fbaca5180319a79f44.1000x1000x1.png",
+          "id": 4247964,
+          "lyrics_owner_id": 4212581,
+          "lyrics_state": "complete",
+          "path": "/Genius-brasil-calendario-de-lancamento-de-singles-setembro-2019-annotated",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/d0660243d78906fbaca5180319a79f44.300x300x1.png",
+          "song_art_image_url": "https://images.genius.com/d0660243d78906fbaca5180319a79f44.1000x1000x1.png",
+          "stats": {
+            "unreviewed_annotations": 0,
+            "hot": false
+          },
+          "title": "Calend\u00e1rio de Lan\u00e7amento de Singles Setembro 2019",
+          "title_with_featured": "Calend\u00e1rio de Lan\u00e7amento de Singles Setembro 2019",
+          "url": "https://genius.com/Genius-brasil-calendario-de-lancamento-de-singles-setembro-2019-annotated",
+          "primary_artist": {
+            "api_path": "/artists/95329",
+            "header_image_url": "https://images.genius.com/744df80dd50fdb9ad849098a9acfee44.960x320x1.png",
+            "id": 95329,
+            "image_url": "https://images.genius.com/e67bc2bf882cf6098cd2f8e7301eccb6.960x960x1.png",
+            "is_meme_verified": false,
+            "is_verified": true,
+            "name": "Genius Brasil",
+            "url": "https://genius.com/artists/Genius-brasil",
+            "iq": 4487
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 0,
+          "api_path": "/songs/4989091",
+          "full_title": "Dissculpa by\u00a0Emicouto",
+          "header_image_thumbnail_url": "https://images.genius.com/d7fb1919f1b37f175fcccdbaae6cb916.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/d7fb1919f1b37f175fcccdbaae6cb916.1000x1000x1.jpg",
+          "id": 4989091,
+          "lyrics_owner_id": 231989,
+          "lyrics_state": "complete",
+          "path": "/Emicouto-dissculpa-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/d7fb1919f1b37f175fcccdbaae6cb916.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/d7fb1919f1b37f175fcccdbaae6cb916.1000x1000x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 0,
+            "hot": false
+          },
+          "title": "Dissculpa",
+          "title_with_featured": "Dissculpa",
+          "url": "https://genius.com/Emicouto-dissculpa-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/1172436",
+            "header_image_url": "https://images.genius.com/d7f1600cf1e8692c78242078714a6855.1000x667x1.jpg",
+            "id": 1172436,
+            "image_url": "https://images.genius.com/d7fb1919f1b37f175fcccdbaae6cb916.1000x1000x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Emicouto",
+            "url": "https://genius.com/artists/Emicouto"
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 5,
+          "api_path": "/songs/107356",
+          "full_title": "G Code by\u00a0Kendrick\u00a0Lamar",
+          "header_image_thumbnail_url": "https://images.genius.com/8b626036c563b0aefa7a5b83f1fb9302.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/8b626036c563b0aefa7a5b83f1fb9302.750x750x1.jpg",
+          "id": 107356,
+          "lyrics_owner_id": 173477,
+          "lyrics_state": "complete",
+          "path": "/Kendrick-lamar-g-code-lyrics",
+          "pyongs_count": 1,
+          "song_art_image_thumbnail_url": "https://images.genius.com/8b626036c563b0aefa7a5b83f1fb9302.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/8b626036c563b0aefa7a5b83f1fb9302.750x750x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 0,
+            "hot": false,
+            "pageviews": 12961
+          },
+          "title": "G Code",
+          "title_with_featured": "G Code",
+          "url": "https://genius.com/Kendrick-lamar-g-code-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/1421",
+            "header_image_url": "https://images.genius.com/f3a1149475f2406582e3531041680a3c.1000x800x1.jpg",
+            "id": 1421,
+            "image_url": "https://images.genius.com/25d8a9c93ab97e9e6d5d1d9d36e64a53.1000x1000x1.jpg",
+            "is_meme_verified": true,
+            "is_verified": true,
+            "name": "Kendrick Lamar",
+            "url": "https://genius.com/artists/Kendrick-lamar",
+            "iq": 39642
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 1,
+          "api_path": "/songs/955592",
+          "full_title": "We've Saved the Best for Last by\u00a0Kenny\u00a0G (Ft.\u00a0Smokey\u00a0Robinson)",
+          "header_image_thumbnail_url": "https://images.genius.com/0abfe7d60563e505788abaf9253b2ece.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/0abfe7d60563e505788abaf9253b2ece.953x953x1.jpg",
+          "id": 955592,
+          "lyrics_owner_id": 1549345,
+          "lyrics_state": "complete",
+          "path": "/Kenny-g-weve-saved-the-best-for-last-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/0abfe7d60563e505788abaf9253b2ece.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/0abfe7d60563e505788abaf9253b2ece.953x953x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 0,
+            "hot": false
+          },
+          "title": "We\u2019ve Saved the Best for Last",
+          "title_with_featured": "We've Saved the Best for Last (Ft.\u00a0Smokey\u00a0Robinson)",
+          "url": "https://genius.com/Kenny-g-weve-saved-the-best-for-last-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/23708",
+            "header_image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "id": 23708,
+            "image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Kenny G",
+            "url": "https://genius.com/artists/Kenny-g"
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 1,
+          "api_path": "/songs/904344",
+          "full_title": "You're Beautiful by\u00a0Kenny\u00a0G",
+          "header_image_thumbnail_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.1000x1000x1.jpg",
+          "id": 904344,
+          "lyrics_owner_id": 1549345,
+          "lyrics_state": "complete",
+          "path": "/Kenny-g-youre-beautiful-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.1000x1000x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 1,
+            "hot": false
+          },
+          "title": "You\u2019re Beautiful",
+          "title_with_featured": "You're Beautiful",
+          "url": "https://genius.com/Kenny-g-youre-beautiful-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/23708",
+            "header_image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "id": 23708,
+            "image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Kenny G",
+            "url": "https://genius.com/artists/Kenny-g"
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 1,
+          "api_path": "/songs/1126822",
+          "full_title": "Beautiful by\u00a0Kenny\u00a0G (Ft.\u00a0Chaka\u00a0Khan)",
+          "header_image_thumbnail_url": "https://images.genius.com/f54bf4ca1313f5c02c86272204bfd774.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/f54bf4ca1313f5c02c86272204bfd774.600x600x1.jpg",
+          "id": 1126822,
+          "lyrics_owner_id": 1549345,
+          "lyrics_state": "complete",
+          "path": "/Kenny-g-beautiful-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/f54bf4ca1313f5c02c86272204bfd774.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/f54bf4ca1313f5c02c86272204bfd774.600x600x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 1,
+            "hot": false
+          },
+          "title": "Beautiful",
+          "title_with_featured": "Beautiful (Ft.\u00a0Chaka\u00a0Khan)",
+          "url": "https://genius.com/Kenny-g-beautiful-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/23708",
+            "header_image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "id": 23708,
+            "image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Kenny G",
+            "url": "https://genius.com/artists/Kenny-g"
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 0,
+          "api_path": "/songs/4707681",
+          "full_title": "One Man's Poison (Another Man's Sweetness) by\u00a0Kenny\u00a0G",
+          "header_image_thumbnail_url": "https://images.genius.com/b8344274d76cc8f081322bcc4ed7b6d2.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/b8344274d76cc8f081322bcc4ed7b6d2.1000x1000x1.jpg",
+          "id": 4707681,
+          "lyrics_owner_id": 5894747,
+          "lyrics_state": "complete",
+          "path": "/Kenny-g-one-mans-poison-another-mans-sweetness-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/b8344274d76cc8f081322bcc4ed7b6d2.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/b8344274d76cc8f081322bcc4ed7b6d2.1000x1000x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 0,
+            "hot": false
+          },
+          "title": "One Man\u2019s Poison (Another Man\u2019s Sweetness)",
+          "title_with_featured": "One Man's Poison (Another Man's Sweetness)",
+          "url": "https://genius.com/Kenny-g-one-mans-poison-another-mans-sweetness-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/23708",
+            "header_image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "id": 23708,
+            "image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Kenny G",
+            "url": "https://genius.com/artists/Kenny-g"
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 1,
+          "api_path": "/songs/1032502",
+          "full_title": "We've Saved The Best For Last (Kenny G with Smokey Robinson) by\u00a0Smokey\u00a0Robinson",
+          "header_image_thumbnail_url": "https://s3.amazonaws.com/rapgenius/SMOKEY_ROBINSON_DPAC.jpg",
+          "header_image_url": "https://s3.amazonaws.com/rapgenius/SMOKEY_ROBINSON_DPAC.jpg",
+          "id": 1032502,
+          "lyrics_owner_id": 1549345,
+          "lyrics_state": "complete",
+          "path": "/Smokey-robinson-weve-saved-the-best-for-last-kenny-g-with-smokey-robinson-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://s3.amazonaws.com/rapgenius/SMOKEY_ROBINSON_DPAC.jpg",
+          "song_art_image_url": "https://s3.amazonaws.com/rapgenius/SMOKEY_ROBINSON_DPAC.jpg",
+          "stats": {
+            "unreviewed_annotations": 0,
+            "hot": false
+          },
+          "title": "We\u2019ve Saved The Best For Last (Kenny G with Smokey Robinson)",
+          "title_with_featured": "We've Saved The Best For Last (Kenny G with Smokey Robinson)",
+          "url": "https://genius.com/Smokey-robinson-weve-saved-the-best-for-last-kenny-g-with-smokey-robinson-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/1223",
+            "header_image_url": "https://s3.amazonaws.com/rapgenius/SMOKEY_ROBINSON_DPAC.jpg",
+            "id": 1223,
+            "image_url": "https://s3.amazonaws.com/rapgenius/SMOKEY_ROBINSON_DPAC.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Smokey Robinson",
+            "url": "https://genius.com/artists/Smokey-robinson"
+          }
+        }
+      },
+      {
+        "highlights": [],
+        "index": "song",
+        "type": "song",
+        "result": {
+          "annotation_count": 1,
+          "api_path": "/songs/2002466",
+          "full_title": "As time goes by by\u00a0Kenny\u00a0G",
+          "header_image_thumbnail_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.300x300x1.jpg",
+          "header_image_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.1000x1000x1.jpg",
+          "id": 2002466,
+          "lyrics_owner_id": 1549345,
+          "lyrics_state": "complete",
+          "path": "/Kenny-g-as-time-goes-by-lyrics",
+          "pyongs_count": null,
+          "song_art_image_thumbnail_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.300x300x1.jpg",
+          "song_art_image_url": "https://images.genius.com/fa2d54cc6e8b8d2b9256a384bf25ae16.1000x1000x1.jpg",
+          "stats": {
+            "unreviewed_annotations": 1,
+            "hot": false
+          },
+          "title": "As time goes by",
+          "title_with_featured": "As time goes by",
+          "url": "https://genius.com/Kenny-g-as-time-goes-by-lyrics",
+          "primary_artist": {
+            "api_path": "/artists/23708",
+            "header_image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "id": 23708,
+            "image_url": "https://images.genius.com/fcad38626f617c14aae734b6ab6ceac2.837x837x1.jpg",
+            "is_meme_verified": false,
+            "is_verified": false,
+            "name": "Kenny G",
+            "url": "https://genius.com/artists/Kenny-g"
+          }
+        }
+      }
+    ]
+  }
+}

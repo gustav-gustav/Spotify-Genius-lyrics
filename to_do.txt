@@ -1,0 +1,5 @@
+simplififcar dicionario com dados do spotify e do genius
+compatibilizar os self. com esse tipo de modelo
+procurar como ter um OAuth2 permanente ou duradouro
+
+compatibilizar e automatizar o processo de tokens por GET e POST no script
