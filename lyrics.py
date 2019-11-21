@@ -7,7 +7,8 @@ import time
 import sys
 import webbrowser
 from img_downloader import Downloader
-
+from auth import Auth
+import glob
 
 class Lyrics:
     def __init__(self):
@@ -63,8 +64,10 @@ class Lyrics:
                 else:
                     print(response.json()['error']['message'])
                 time.sleep(self.sleep)
-                webbrowser.open_new_tab('https://developer.spotify.com/console/get-user-player/?market=ES')
-                self.write_token(input('Paste token here: '))
+                # webbrowser.open_new_tab('https://developer.spotify.com/console/get-user-player/?market=ES')
+                Auth()
+                self.cache()
+                self.write_token(self.access_token)  # input('Paste token here: '))
                 print('\n')
                 self.__init__()
 
@@ -106,6 +109,14 @@ class Lyrics:
         with io.open(self.PATH, 'w', encoding='utf-8') as f:
             f.write(self.HEAD)
             f.write(self.LYRICS)
+
+    def cache(self):
+        cache_file = glob.glob(os.path.join(os.getcwd(), ".cache*"))[0]
+        with io.open(cache_file, 'r') as f:
+            cache = json.load(f)
+
+        self.access_token = cache['access_token']
+        self.refresh_token = cache['refresh_token']
 
     def get_token(self):
         with io.open('token.txt', 'r', encoding='utf-8') as f:

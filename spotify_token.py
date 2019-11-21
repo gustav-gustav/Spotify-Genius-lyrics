@@ -5,7 +5,6 @@ import base64
 import spotipy
 import spotipy.util as util
 
-#header = {'client_id': '1e8545657dcf4b68834202d8d877149c', 'response_type': 'code', 'redirect_uri': 'https://example.com', 'scope': 'user-read-playback-state user-read-currently-playing'}
 
 class Spotify:
     def __init__(self):
@@ -45,11 +44,3 @@ class Spotify:
 
 # if __name__ == '__main__':
 #     Spotify()
-
-# class spotipy.oauth2.SpotifyOAuth ('1e8545657dcf4b68834202d8d877149c', "597c4195242f45feb0d673d13781f819", 'https://example.com/callback',  scope='user-read-playback-state user-read-currently-playing'):
-#     def __init__(client_id, client_secret, redirect_uri, state=None,
-#              scope=None, cache_path=None, proxies=None):
-#         self.
-
-# util.prompt_for_user_token("12148438227", 'user-read-playback-state user-read-currently-playing',
-                           client_id="1e8545657dcf4b68834202d8d877149c", client_secret='597c4195242f45feb0d673d13781f819', redirect_uri='https://example.com/callback')
