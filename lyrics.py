@@ -22,7 +22,8 @@ class Lyrics:
         self.LYRICS_FILE = 'lyrics.txt'
         self.PATH = os.path.join(os.getcwd(), self.LYRICS_FILE)
         self.CURRENT = os.path.join(os.getcwd(), 'current_song.txt')
-        self.debug = True
+        self.ALBUM_PATH = os.path.join("C:\\", "Users", "Gustavo", "Pictures", "Albums")
+        self.debug = False
         self.sleep = 2
         self.main()
 
@@ -52,18 +53,20 @@ class Lyrics:
         else:
             try:
                 js = response.json()
-                if self.debug:
-                    self.serialize('spotify', js)
+                # if self.debug:
+                self.serialize('spotify', js)
 
                 self.song = js['item']['name']
                 self.artist = js['item']['artists'][0]['name']
+                self.album = js['item']['album']['name']
+                self.album_dir = f'{self.album} - {self.artist}'
                 self.HEAD = f'{self.song} - {self.artist}'
             except KeyError:
                 if self.debug:
                     print(response.json())
                 else:
                     print(response.json()['error']['message'])
-                time.sleep(self.sleep)
+                # time.sleep(self.sleep)
                 # webbrowser.open_new_tab('https://developer.spotify.com/console/get-user-player/?market=ES')
                 Auth()
                 self.cache()
@@ -94,7 +97,7 @@ class Lyrics:
             print(self.HEAD)
             print(self.LYRICS)
             self.writer()
-            Downloader(1)
+            self.lywriter()
         else:
             print(f'Could not find lyrics for {self.HEAD}')
 
@@ -109,6 +112,21 @@ class Lyrics:
         with io.open(self.PATH, 'w', encoding='utf-8') as f:
             f.write(self.HEAD)
             f.write(self.LYRICS)
+
+    def lywriter(self):
+        albums = glob.glob(os.path.join(self.ALBUM_PATH, "*"))
+        full_album_dir = os.path.join(self.ALBUM_PATH, self.album_dir)
+
+        if full_album_dir not in albums:
+            os.mkdir(full_album_dir)
+
+        album_lyrics = glob.glob(os.path.join(full_album_dir, "*.txt"))
+        full_song_path = os.path.join(full_album_dir, f"{self.song}.txt")
+        if full_song_path not in album_lyrics:
+            with open(full_song_path, 'w') as lyric_file:
+                lyric_file.write(self.LYRICS)
+
+        Downloader(1, full_album_dir, debug=self.debug)
 
     def cache(self):
         cache_file = glob.glob(os.path.join(os.getcwd(), ".cache*"))[0]
