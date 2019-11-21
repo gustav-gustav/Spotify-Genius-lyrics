@@ -6,9 +6,9 @@ import glob
 
 
 class Downloader:
-    def __init__(self, total, debug=False):
+    def __init__(self, total, album_path, debug=False):
         self.debug = debug
-        self.full_path = os.path.join("C:\\", "Users", "Gustavo", "Pictures", "Albums")
+        self.album_path = album_path
         self.json_file = "spotify.json"
         self.total = total
         with open(self.json_file, "r") as f:
@@ -21,14 +21,14 @@ class Downloader:
             self.width = self.js["item"]["album"]["images"][i]["width"]
             self.url = self.js["item"]["album"]["images"][i]["url"]
             self.filename = os.path.join(
-                self.full_path, f"{self.artist}_{self.name}_{self.height}x{self.width}.jpg".replace(' ', '_'))
+                self.album_path, f"{self.artist}_{self.name}_{self.height}x{self.width}.jpg".replace(' ', '_'))
             if self.debug:
                 print(self.filename)
             self.check()
 
     def check(self):
-        filenames = glob.glob(os.path.join(self.full_path, "*"))
-        if self.filename not in filenames:
+        image = glob.glob(os.path.join(self.album_path, "*.jpg"))
+        if self.filename not in image:
             if self.debug:
                 print(f"downloading {self.filename}", end="\r")
             self.main()
@@ -41,4 +41,4 @@ class Downloader:
 
 
 if __name__ == "__main__":
-    Downloader(2, debug=True)
+    Downloader(2, os.path.join('C:\\', 'Users', 'Gustavo', 'Pictures', 'Albums'), debug=True)

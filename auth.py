@@ -14,7 +14,8 @@ class Auth:
         self.scope = 'user-read-playback-state user-read-currently-playing'
         self.tokener()
         spotifyObject = spotipy.Spotify(auth=self.token)
-        print('Authorized', end='\r')
+        if self.debug:
+            print('Authorized', end='\r')
 
     def tokener(self):
         try:
