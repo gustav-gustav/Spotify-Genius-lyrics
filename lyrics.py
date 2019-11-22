@@ -144,7 +144,7 @@ class Lyrics:
 
     def check(self):
         #gets the current song
-        with io.open(self.LYRICS_FILE) as f:
+        with io.open(self.LYRICS_FILE, 'r', encoding='utf-8') as f:
             self.CURRENT_SONG = f.readline().strip('\n')
 
     def lywriter(self):
@@ -164,7 +164,7 @@ class Lyrics:
         #checks if that lyric is not in the folder
         if full_song_path not in album_lyrics:
             #if it isn't, creates it
-            with open(full_song_path, 'w') as lyric_file:
+            with open(full_song_path, 'w', encoding='utf-8') as lyric_file:
                 lyric_file.write(self.LYRICS)
 
         #calls the image downloader with the directory to download to and debug state
