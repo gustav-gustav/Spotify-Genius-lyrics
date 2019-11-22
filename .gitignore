@@ -12,3 +12,4 @@ img_downloader.py
 lyrics.txt
 current_song.txt
 .gitignore
+.vscode/launch.json
