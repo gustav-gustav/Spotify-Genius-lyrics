@@ -1,6 +1,6 @@
 .cache-*
-__pycache__\*
-.vscode\launch.json
+__pycache__/*
+.vscode/launch.json
 templates/layout.html
 templates/static/main.css
 spotify.json
