@@ -12,4 +12,7 @@ here's a list of variables used in the script:
 
 {'LYRICS_PATH': path, 'LYRICS_GENIUS_TOKEN': token, 'LYRICS_CLIENT_ID': ID, 'LYRICS_CLIENT_SECRET': secret, 'LYRICS_USERNAME': Username}
 
-#
+you could also set all of these in 1 env var as a dictionary and import it once, and set it in the script
+
+# To get started, run setup.py
+it will create files required for the program to work, and install requirements
