@@ -1,4 +1,5 @@
 .cache-*
+.vscode
 templates/layout.html
 templates/static/main.css
 spotify.json
