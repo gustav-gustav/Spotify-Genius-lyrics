@@ -1,5 +1,5 @@
 .cache-*
-__pycache__/*
+__pycache__/
 .vscode/launch.json
 templates/layout.html
 templates/static/main.css
