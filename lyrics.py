@@ -13,14 +13,14 @@ class Lyrics:
     def __init__(self):
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
-
-        self.cache()  # sets the access token
+        # sets the access token
+        self.cache()
         self.TOKENS = {'genius': os.environ['LYRICS_GENIUS_TOKEN'],
                        'spotify': self.access_token}
-        #URL to API
+        #URL of API
         self.BASE_URL = {'genius': 'https://api.genius.com/search',
                          'spotify': 'https://api.spotify.com/v1/me/player'}
-        #headers to each API
+        #headers for each API
         self.HEADERS = {'genius': {
             'Authorization':  f'Bearer {self.TOKENS["genius"]}'},
             'spotify': {'Authorization':  f'Bearer {self.TOKENS["spotify"]}', 'Accept': 'application/json', 'Content-Type': 'application/json'}}
@@ -148,7 +148,6 @@ class Lyrics:
             self.CURRENT_SONG = f.readline().strip('\n')
 
     def lywriter(self):
-        #chars not accepted in path on windows
         #globs all files to search if the currently playing song's album has been created
         albums = glob.glob(os.path.join(self.ALBUM_PATH, "*"))
         full_album_dir = os.path.join(self.ALBUM_PATH, self.album_dir)
