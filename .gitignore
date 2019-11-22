@@ -1,17 +1,10 @@
 .cache-*
-__pycache__/auth.cpython-37.pyc
-__pycache__/img_downloader.cpython-37.pyc
-__pycache__/lyrics.cpython-37.pyc
 templates/layout.html
 templates/static/main.css
-__pycache__/auth.cpython-37.pyc
-__pycache__/img_downloader.cpython-37.pyc
-genius.json
 spotify.json
 genius.json
 token.txt
 spotify.json
 auth.py
 img_downloader.py
-lyrics.txt
 lyrics.txt
