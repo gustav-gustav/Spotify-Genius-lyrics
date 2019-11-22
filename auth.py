@@ -6,12 +6,17 @@ import spotipy.util as util
 class Auth:
     def __init__(self, debug=False):
         self.debug = debug
-        self.redirect_uri = 'https://example.com/callback'
+        #environment variables (secure)
         self.client_id = os.environ['LYRICS_CLIENT_ID']
         self.client_secret = os.environ['LYRICS_CLIENT_SECRET']
         self.username = os.environ['LYRICS_USERNAME']
+        #callback URI set in your spotify app. see https://developer.spotify.com/dashboard/login
+        self.redirect_uri = 'https://example.com/callback'
+        #token API
         self.url = 'https://accounts.spotify.com/api/token'
+        #scope necessary
         self.scope = 'user-read-playback-state user-read-currently-playing'
+        #calls for spotipy function that hadles API tokens and stores them into a json cache file
         self.tokener()
         spotifyObject = spotipy.Spotify(auth=self.token)
         if self.debug:

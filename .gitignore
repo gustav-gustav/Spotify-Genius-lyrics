@@ -10,3 +10,7 @@ genius.json
 spotify.json
 genius.json
 token.txt
+spotify.json
+auth.py
+img_downloader.py
+lyrics.txt
