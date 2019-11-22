@@ -1,4 +1,5 @@
 .cache-*
+__pycache__\*
 .vscode\launch.json
 templates/layout.html
 templates/static/main.css
@@ -9,3 +10,4 @@ spotify.json
 auth.py
 img_downloader.py
 lyrics.txt
+current_song.txt
