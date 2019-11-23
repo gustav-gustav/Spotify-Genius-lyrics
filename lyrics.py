@@ -123,6 +123,7 @@ class Lyrics:
             print(self.LYRICS)
             #writes the lyrics to a file
             self.writer()
+            # self.poster({"HEAD": self.HEAD, "BODY": self.LYRICS})
             #writes the lyric to the album lyrics
             self.lywriter()
         else:
@@ -150,7 +151,8 @@ class Lyrics:
     def lywriter(self):
         #globs all files to search if the currently playing song's album has been created
         albums = glob.glob(os.path.join(self.ALBUM_PATH, "*"))
-        full_album_dir = os.path.join(self.ALBUM_PATH, self.album_dir)
+        full_album_dir = os.path.join(
+            self.ALBUM_PATH, char_remover(self.album_dir, replacer='x'))
 
         if full_album_dir not in albums:
             #if not, creates it
@@ -159,7 +161,8 @@ class Lyrics:
         #looks for all lyrics in the album folder
         album_lyrics = glob.glob(os.path.join(full_album_dir, "*.txt"))
         #sets a full path for the song
-        full_song_path = os.path.join(full_album_dir, f"{self.song}.txt")
+        full_song_path = os.path.join(
+            full_album_dir, char_remover(f"{self.song}.txt", replacer='x'))
         #checks if that lyric is not in the folder
         if full_song_path not in album_lyrics:
             #if it isn't, creates it
