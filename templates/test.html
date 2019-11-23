@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript">
+        (function worker() {
+            $.get('/data', function (data) {
+                $('#HEAD').html(data.HEAD);
+                $('#BODY').html(data.BODY);
+                $('#IMAGE').html(data.IMAGE);    // update page with new data
+                setTimeout(worker, 2000); // run `worker()` again after 1000ms (1s)
+            });
+        })();
+    </script>
+    <title>Test</title>
+</head>
+
+<body>
+    <h1><span id="HEAD"><span></h1>
+    <span id='BODY'></span>
+    <img id='IMAGE'>
+</body>
+
+</html>
