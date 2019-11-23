@@ -6,11 +6,19 @@ import io
 import time
 import sys
 import glob
+import argparse
 #image downloader, spotipy token handler, special characters remover
 from misc import Downloader, Auth, char_remover
 
 class Lyrics:
     def __init__(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--web', '-w', action="store_true", default=False)
+        args = parser.parse_args()
+        if args.web:
+            self.CONSOLE = False
+        else:
+            self.CONSOLE = True
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
         # sets the access token
@@ -63,7 +71,8 @@ class Lyrics:
             self.BASE_URL['spotify'], headers=self.HEADERS['spotify'])
         #if nothing is playing the loop goes back to the self.main()
         if response.status_code == 204:
-            print('Not listening to anything at the moment.', end='\r')
+            if self.CONSOLE:
+                print('Not listening to anything at the moment.', end='\r')
             time.sleep(self.sleep)
         #if response.status_code == 200 OK
         else:
@@ -80,23 +89,24 @@ class Lyrics:
                 self.HEAD = f'{self.song} - {self.artist}'
 
             except KeyError:
-                if self.debug:
-                    #whole json response
-                    print(response.json())
-                else:
-                    #prettyfied
-                    #will mostly tell that the access token has expired
-                    print(response.json()['error']['message'])
+                if self.CONSOLE:
+                    if self.debug:
+                        #whole json response
+                        print(response.json())
+                    else:
+                        #prettyfied
+                        #will mostly tell that the access token has expired
+                        print(response.json()['error']['message'])
 
                 #call to the spotipy token handler
                 Auth()
-                print('\n')
                 #calls for __init__() for the token to be updated by self.cache()
                 #update self.TOKENS and self. HEADERS
                 self.__init__()
 
     def genius(self):
-        print('Crossing references with Genius\'s database...', end='\r')
+        if self.CONSOLE:
+            print('Crossing references with Genius\'s database...', end='\r')
         #call to API
         response = requests.get(self.BASE_URL['genius'], headers=self.HEADERS['genius'], data={
                           'q': f'{self.song} {self.artist}'})
@@ -118,20 +128,24 @@ class Lyrics:
             song_url = song_hit['result']['url']
             #call for the web scraper
             self.scraper(song_url)
-            print('-'*70, '\n')
-            print(self.HEAD)
-            print(self.LYRICS)
+            if self.CONSOLE:
+                print('-'*70, '\n')
+                print(self.HEAD)
+                print(self.LYRICS)
             #writes the lyrics to a file
             self.writer()
             # self.poster({"HEAD": self.HEAD, "BODY": self.LYRICS})
             #writes the lyric to the album lyrics
             self.lywriter()
         else:
-            print(f'Could not find lyrics for {self.HEAD}')
+            message = f'Could not find lyrics for {self.HEAD}'
+            if self.CONSOLE:
+                print(message)
 
     def scraper(self, url):
         #this print has  to be this long so it erases the genius print
-        print('retrieving lyrics...                          ', end='\r')
+        if self.CONSOLE:
+            print('retrieving lyrics...                          ', end='\r')
         page = requests.get(url)
         html = BeautifulSoup(page.text, 'html.parser')
         [h.extract() for h in html('script')]
