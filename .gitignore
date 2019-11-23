@@ -2,7 +2,6 @@
 __pycache__/
 .vscode/launch.json
 templates/layout.html
-templates/static/main.css
 spotify.json
 genius.json
 token.txt
