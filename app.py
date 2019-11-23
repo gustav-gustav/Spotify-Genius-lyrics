@@ -19,9 +19,9 @@ def reader():
 
     with io.open('lyrics.txt', 'r') as f:
         HEAD = f.readline().strip("\n")
-        BODY = f.read().replace('\n', '<br>')
+        LYRICS = f.read().replace('\n', '<br>')
 
-    lyrics = {"HEAD": HEAD, "BODY": BODY, 'IMAGE': js_url}
+    lyrics = {"HEAD": HEAD, "LYRICS": LYRICS, 'IMAGE': js_url}
     return lyrics
 
 

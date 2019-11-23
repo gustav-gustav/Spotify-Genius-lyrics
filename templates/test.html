@@ -15,19 +15,26 @@
         (function worker() {
             $.get('/data', function (data) {
                 $('#HEAD').html(data.HEAD);
-                $('#BODY').html(data.BODY);
-                $('#IMAGE').html(data.IMAGE);    // update page with new data
+                $('#LYRICS').html(data.LYRICS);
+                $('#IMAGE').html(data.IMAGE);
                 setTimeout(worker, 2000); // run `worker()` again after 1000ms (1s)
             });
         })();
     </script>
+
     <title>Test</title>
 </head>
 
 <body>
     <h1><span id="HEAD"><span></h1>
-    <span id='BODY'></span>
-    <img id='IMAGE'>
+    <span id='LYRICS'></span>
 </body>
+<!-- var image_source = data.IMAGE;
+var image = document.createElement("img");
+var imageParent = document.body
+image.id = "IMAGE";
+image.className = "testclass";
+image.src = image_source; // image.src = "IMAGE URL/PATH"
+imageParent.appendChild(image); -->
 
 </html>
