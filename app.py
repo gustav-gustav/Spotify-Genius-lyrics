@@ -2,6 +2,8 @@ import os, time, io, datetime, json
 from flask import Flask, render_template, request, render_template_string
 
 app = Flask(__name__)
+app.static_folder = os.path.join(os.environ['LYRICS_path'], 'templates', 'static')
+
 
 @app.route("/")
 def test():
