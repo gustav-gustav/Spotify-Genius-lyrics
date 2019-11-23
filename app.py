@@ -26,4 +26,4 @@ def reader():
 
 
 if __name__ == "__main__":
-    app.run(debug=1)
+    app.run("0.0.0.0", debug=1)
