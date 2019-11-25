@@ -17,6 +17,7 @@
                 $('#HEAD').html(data.HEAD);
                 $('#LYRICS').html(data.LYRICS);
                 $('#IMAGE').html(data.IMAGE);
+                document.getElementById('albumCover').src = data.IMAGE
                 setTimeout(worker, 1000); // run `worker()` again after 1000ms (1s)
             });
         })();
@@ -30,6 +31,7 @@
         <h1><span id="HEAD" ><span></h1>
     </div>
     <span id='LYRICS'></span>
+    <img id="albumCover" src="">
 </body>
 <!-- var image_source = data.IMAGE;
 var image = document.createElement("img");
