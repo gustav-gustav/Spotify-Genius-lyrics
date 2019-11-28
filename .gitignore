@@ -1,0 +1,11 @@
+.vscode/launch.json
+__pycache__/app.cpython-37.pyc
+__pycache__/auth.cpython-37.pyc
+__pycache__/img_downloader.cpython-37.pyc
+__pycache__/misc.cpython-36.pyc
+__pycache__/misc.cpython-37.pyc
+templates/home.html
+templates/layout.html
+python/img_downloader.py
+python/test.py
+python/auth.py
