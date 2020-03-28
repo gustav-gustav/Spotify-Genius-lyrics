@@ -10,7 +10,7 @@
   },
   "shuffle_state": false,
   "repeat_state": "off",
-  "timestamp": 1585423244573,
+  "timestamp": 1585435145997,
   "context": {
     "external_urls": {
       "spotify": "https://open.spotify.com/playlist/37i9dQZF1DX10Sc03dg4tn"
@@ -19,7 +19,7 @@
     "type": "playlist",
     "uri": "spotify:user:spotify:playlist:37i9dQZF1DX10Sc03dg4tn"
   },
-  "progress_ms": 2890,
+  "progress_ms": 205875,
   "item": {
     "album": {
       "album_type": "album",
@@ -231,23 +231,23 @@
       "ZA"
     ],
     "disc_number": 1,
-    "duration_ms": 208505,
+    "duration_ms": 209583,
     "explicit": false,
     "external_ids": {
-      "isrc": "GBAHT1901301"
+      "isrc": "GBAHT1901297"
     },
     "external_urls": {
-      "spotify": "https://open.spotify.com/track/1nYeVF5vIBxMxfPoL0SIWg"
+      "spotify": "https://open.spotify.com/track/2nMOodYNHBAQ3Kc1QNimZU"
     },
-    "href": "https://api.spotify.com/v1/tracks/1nYeVF5vIBxMxfPoL0SIWg",
-    "id": "1nYeVF5vIBxMxfPoL0SIWg",
+    "href": "https://api.spotify.com/v1/tracks/2nMOodYNHBAQ3Kc1QNimZU",
+    "id": "2nMOodYNHBAQ3Kc1QNimZU",
     "is_local": false,
-    "name": "Hallucinate",
-    "popularity": 41,
-    "preview_url": "https://p.scdn.co/mp3-preview/ba40dad2afb2539af70d8abb47f4cee5004b2871?cid=1e8545657dcf4b68834202d8d877149c",
-    "track_number": 7,
+    "name": "Cool",
+    "popularity": 42,
+    "preview_url": "https://p.scdn.co/mp3-preview/d5b1705324b528378c7cf7b85fc7a997281dbb73?cid=1e8545657dcf4b68834202d8d877149c",
+    "track_number": 3,
     "type": "track",
-    "uri": "spotify:track:1nYeVF5vIBxMxfPoL0SIWg"
+    "uri": "spotify:track:2nMOodYNHBAQ3Kc1QNimZU"
   },
   "currently_playing_type": "track",
   "actions": {

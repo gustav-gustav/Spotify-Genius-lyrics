@@ -103,3 +103,37 @@ def timer(function):
         print(f'{function.__name__!r} finished in: {(perf_counter() - start):.2f}')
         return value
     return wrapper_timer
+
+# def conditional_decorator(dec, condition):
+#     def decorator(func):
+#         if not condition:
+#             # Return the function unchanged, not decorated.
+#             return func
+#         return dec(func)
+#     return decorator
+
+
+# def conditional_decorator(decorator):
+#     def decorator(function):
+#         @wraps(function)
+#         def wrapper(*args, **kw):
+#             cls = args[0]
+#             print(cls.debug)
+#             if cls.debug:
+#                 decorator(function)
+#         return wrapper
+#     return decorator
+
+
+def conditional_decorator(decoration, member):
+    def decorator(method):
+        predecorated = decoration(method)
+        @wraps(method)
+        def wrapper(*args, **kwargs):
+            self = args[0]
+            condition = getattr(self, member)
+            if not condition:
+                return method(*args, **kwargs)
+            return predecorated(*args, **kwargs)
+        return wrapper
+    return decorator
