@@ -1,4 +1,4 @@
-import os, time, io, datetime, json
+import os, time, io, datetime, json, sys
 from flask import Flask, render_template, request, render_template_string
 
 app = Flask(__name__)
@@ -11,7 +11,6 @@ json_path = os.path.join(base_path, 'json')
 @app.route("/")
 def test():
     return render_template('test.html')
-    # return render_template("home.html", lyrics=reader())
 
 @app.route('/data')
 def data():
@@ -34,4 +33,9 @@ def reader():
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", debug=1)
+    try:
+        app.run("0.0.0.0", debug=1)
+    except Exception as e:
+        print(e)
+    finally:
+        sys.exit()

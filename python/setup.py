@@ -1,6 +1,16 @@
 import os, glob, io, subprocess
 #run this to setup
 
+LYRICS_PATH = os.getcwd() #input("Full path to where you want to install")
+LYRICS_ALBUM = input("Full path to where you want to save album cover arts and lyrics: ")
+LYRICS_USERNAME = input("Your Spotify Username: ")
+LYRICS_CLIENT_ID = input(
+    "Your Spotify developer client_id (https://developer.spotify.com/dashboard/login): ")
+LYRICS_CLIENT_SECRET = input("Your Spotify developer client_secret: ")
+LYRICS_GENIUS_TOKEN = input(
+    "Your Genius API token (https://genius.com/api-clients): ")
+
+
 path = os.environ['LYRICS_PATH']
 full_filename = os.path.join(path, 'lyrics.txt')
 files = glob.glob(os.path.join(path, '*.txt'))

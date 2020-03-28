@@ -5,6 +5,8 @@ import shutil
 import glob
 import spotipy
 import spotipy.util as util
+from functools import wraps
+from time import perf_counter
 
 
 class Downloader:
@@ -91,3 +93,13 @@ def char_remover(string, replacer=''):
     for char in bad_chars:
         string = string.replace(char, replacer)
     return string
+
+
+def timer(function):
+    @wraps(function)
+    def wrapper_timer(*args, **kwargs):
+        start = perf_counter()
+        value = function(*args, **kwargs)
+        print(f'{function.__name__!r} finished in: {(perf_counter() - start):.2f}')
+        return value
+    return wrapper_timer

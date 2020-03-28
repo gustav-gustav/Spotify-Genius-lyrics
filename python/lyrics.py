@@ -8,7 +8,7 @@ import sys
 import glob
 import argparse
 #image downloader, spotipy token handler, special characters remover
-from misc import Downloader, Auth, char_remover
+from misc import *
 
 class Lyrics:
     def __init__(self):
@@ -41,7 +41,7 @@ class Lyrics:
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
         #debug bool
-        self.debug = False
+        self.debug = True
         #interval to make requests to API
         self.sleep = 2
         #call to main function
@@ -67,6 +67,7 @@ class Lyrics:
             except KeyboardInterrupt:
                 sys.exit(0)
 
+    @timer
     def spotify(self):
         #request to spotify API | look for scopes in the self.HEADERS
         response = requests.get(
@@ -106,6 +107,7 @@ class Lyrics:
                 #update self.TOKENS and self. HEADERS
                 self.__init__()
 
+    @timer
     def genius(self):
         if self.CONSOLE:
             print('Crossing references with Genius\'s database...', end='\r')
@@ -144,6 +146,7 @@ class Lyrics:
             if self.CONSOLE:
                 print(message)
 
+    @timer
     def scraper(self, url):
         #this print has  to be this long so it erases the genius print
         if self.CONSOLE:
