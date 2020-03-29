@@ -14,6 +14,7 @@ class Lyrics:
     def __init__(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', action="store_true", default=False)
+        parser.add_argument('--debug', '-d', action="store_true", default=False//)
         args = parser.parse_args()
         if args.web:
             self.CONSOLE = False
@@ -41,8 +42,8 @@ class Lyrics:
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
         #debug bool
-        self.debug = False
-        #interval to make requests to API
+        self.debug = args.debug
+        # interval to make requests to API
         self.sleep = 2
         #call to main function
         self.main()
