@@ -12,6 +12,9 @@ from misc import *
 
 class Lyrics:
     def __init__(self):
+        #call to Auth() to grab spotifyObject
+        self.spotifyObject = Auth().spotifyObject
+        #argparse stuff
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', action="store_true", default=False)
         parser.add_argument('--debug', '-d', action="store_true", default=False)
@@ -70,7 +73,7 @@ class Lyrics:
             except KeyboardInterrupt:
                 sys.exit(0)
 
-    @conditional_decorator(timer, 'debug')
+    @conditional_decorator(Timer, 'debug')
     def spotify(self):
         #request to spotify API | look for scopes in the self.HEADERS
         response = requests.get(
@@ -110,7 +113,7 @@ class Lyrics:
                 #update self.TOKENS and self. HEADERS
                 self.__init__()
 
-    @conditional_decorator(timer, 'debug')
+    @conditional_decorator(Timer, 'debug')
     def genius(self):
         if self.CONSOLE:
             print('Crossing references with Genius\'s database...', end='\r')
@@ -138,7 +141,7 @@ class Lyrics:
             if self.CONSOLE:
                 print(message)
 
-    @conditional_decorator(timer, 'debug')
+    @conditional_decorator(Timer, 'debug')
     def scraper(self):
         #this print has  to be this long so it erases the genius print
         if self.CONSOLE:
