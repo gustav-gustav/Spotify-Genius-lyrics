@@ -7,7 +7,7 @@ import json
 import spotipy
 import spotipy.util as util
 from functools import wraps
-from time import perf_counter
+from time import perf_counter, sleep
 import matplotlib.pyplot as plt
 
 
@@ -31,8 +31,6 @@ class Downloader:
         self.filename = char_remover(
             f"{self.artist}_{self.name}_{self.height}x{self.width}.jpg".replace(' ', '_'), replacer='x')
         self.full_filename = os.path.join(self.album_path, self.filename)
-        if self.debug:
-            print(self.filename)
         #calls for the check function
         self.check()
 
@@ -108,6 +106,25 @@ def timer(function):
         write_statistics(function, elapsed)
         return value
     return wrapper_timer
+
+
+class Timer:
+    def __init__(self, function):
+        self.function = function
+        self.string = f"{self.function.__name__!r} finished in: "
+
+    def __call__(self, *args, **kwargs):
+        start = perf_counter()
+        self.value = self.function(*args, **kwargs)
+        self.elapsed = float(f"{(perf_counter() - start):.2f}")
+        print(f"{self.string}{self.elapsed}")
+        return self.value
+
+class ResponseTimer(Timer):
+    def __init__(self, function):
+        super().__init__(function)
+        param = ''
+        self.string = f"{param} {self.string}"
 
 
 def conditional_decorator(decoration, member):
