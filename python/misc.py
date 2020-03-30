@@ -3,10 +3,13 @@ import requests
 import os
 import shutil
 import glob
+import json
 import spotipy
 import spotipy.util as util
 from functools import wraps
 from time import perf_counter
+import matplotlib.pyplot as plt
+
 
 
 class Downloader:
@@ -71,7 +74,7 @@ class Auth:
             self.JSON_PATH, f".cache-{self.username}")
         #calls for spotipy function that hadles API tokens and stores them into a json cache file
         self.tokener()
-        spotifyObject = spotipy.Spotify(auth=self.token)
+        self.spotifyObject = spotipy.Spotify(auth=self.token)
         if self.debug:
             print('Authorized', end='\r')
 
@@ -100,7 +103,9 @@ def timer(function):
     def wrapper_timer(*args, **kwargs):
         start = perf_counter()
         value = function(*args, **kwargs)
-        print(f'{function.__name__!r} finished in: {(perf_counter() - start):.2f}')
+        elapsed = float(f"{(perf_counter() - start):.2f}")
+        print(f'{function.__name__!r} finished in: {elapsed}')
+        write_statistics(function, elapsed)
         return value
     return wrapper_timer
 
@@ -117,3 +122,21 @@ def conditional_decorator(decoration, member):
             return predecorated(*args, **kwargs)
         return wrapper
     return decorator
+
+def write_statistics(function, value):
+    filename = f"statistics.json"
+    function_name = function.__name__
+    path = os.path.join(os.environ['LYRICS_PATH'], 'json', filename)
+    if not os.path.isfile(path):
+        with open(path, "w+") as create_file:
+            json.dump({}, create_file)
+
+    with open(path, "r") as json_read:
+        json_read = json.load(json_read)
+        if function_name not in json_read:
+            json_read[function_name] = [value]
+        else:
+            json_read[function_name].append(value)
+
+    with open(path, "w") as json_dump:
+        json.dump(json_read, json_dump)
