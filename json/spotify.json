@@ -1,44 +1,47 @@
 {
   "device": {
-    "id": "1b81e66a18bd3a4a6f4e6569d0f7220b3d3de544",
+    "id": "164e48956382230340bcdea986384f5ea6fcc8d6",
     "is_active": true,
     "is_private_session": false,
     "is_restricted": false,
-    "name": "GUSTAVO",
-    "type": "Computer",
-    "volume_percent": 65
+    "name": "gghb",
+    "type": "Smartphone",
+    "volume_percent": 100
   },
-  "shuffle_state": true,
+  "shuffle_state": false,
   "repeat_state": "off",
-  "timestamp": 1585439054891,
+  "timestamp": 1585537592349,
   "context": {
     "external_urls": {
-      "spotify": "https://open.spotify.com/playlist/37i9dQZF1DX4xccmgs2sLo"
+      "spotify": "https://open.spotify.com/album/7fJJK56U9fHixgO0HQkhtI"
     },
-    "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX4xccmgs2sLo",
-    "type": "playlist",
-    "uri": "spotify:playlist:37i9dQZF1DX4xccmgs2sLo"
+    "href": "https://api.spotify.com/v1/albums/7fJJK56U9fHixgO0HQkhtI",
+    "type": "album",
+    "uri": "spotify:album:7fJJK56U9fHixgO0HQkhtI"
   },
-  "progress_ms": 18264,
+  "progress_ms": 79046,
   "item": {
     "album": {
       "album_type": "album",
       "artists": [
         {
           "external_urls": {
-            "spotify": "https://open.spotify.com/artist/3jK9MiCrA42lLAdMGUZpwa"
+            "spotify": "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we"
           },
-          "href": "https://api.spotify.com/v1/artists/3jK9MiCrA42lLAdMGUZpwa",
-          "id": "3jK9MiCrA42lLAdMGUZpwa",
-          "name": "Anderson .Paak",
+          "href": "https://api.spotify.com/v1/artists/6M2wZ9GZgrQXHCFfjv46we",
+          "id": "6M2wZ9GZgrQXHCFfjv46we",
+          "name": "Dua Lipa",
           "type": "artist",
-          "uri": "spotify:artist:3jK9MiCrA42lLAdMGUZpwa"
+          "uri": "spotify:artist:6M2wZ9GZgrQXHCFfjv46we"
         }
       ],
       "available_markets": [
+        "AD",
         "AE",
         "AR",
         "AU",
+        "BE",
+        "BG",
         "BH",
         "BO",
         "BR",
@@ -46,37 +49,63 @@
         "CL",
         "CO",
         "CR",
+        "CY",
+        "CZ",
+        "DK",
         "DO",
         "DZ",
         "EC",
+        "EE",
         "EG",
+        "ES",
+        "FI",
+        "FR",
+        "GB",
+        "GR",
         "GT",
         "HK",
         "HN",
+        "HU",
         "ID",
+        "IE",
         "IL",
-        "IN",
+        "IS",
+        "IT",
         "JO",
         "JP",
         "KW",
         "LB",
+        "LI",
+        "LT",
+        "LU",
+        "LV",
         "MA",
+        "MC",
+        "MT",
         "MX",
         "MY",
         "NI",
+        "NL",
+        "NO",
         "NZ",
         "OM",
         "PA",
         "PE",
         "PH",
+        "PL",
         "PS",
+        "PT",
         "PY",
         "QA",
+        "RO",
         "SA",
+        "SE",
         "SG",
+        "SK",
         "SV",
         "TH",
         "TN",
+        "TR",
         "TW",
         "US",
         "UY",
@@ -84,60 +113,53 @@
         "ZA"
       ],
       "external_urls": {
-        "spotify": "https://open.spotify.com/album/2DOiha5oI19Dmw5M9ryHD8"
+        "spotify": "https://open.spotify.com/album/7fJJK56U9fHixgO0HQkhtI"
       },
-      "href": "https://api.spotify.com/v1/albums/2DOiha5oI19Dmw5M9ryHD8",
-      "id": "2DOiha5oI19Dmw5M9ryHD8",
+      "href": "https://api.spotify.com/v1/albums/7fJJK56U9fHixgO0HQkhtI",
+      "id": "7fJJK56U9fHixgO0HQkhtI",
       "images": [
         {
           "height": 640,
-          "url": "https://i.scdn.co/image/ab67616d0000b2731904cf63d8f039da1555ad18",
+          "url": "https://i.scdn.co/image/ab67616d0000b273c966c2f4e08aee0442b6b8d6",
           "width": 640
         },
         {
           "height": 300,
-          "url": "https://i.scdn.co/image/ab67616d00001e021904cf63d8f039da1555ad18",
+          "url": "https://i.scdn.co/image/ab67616d00001e02c966c2f4e08aee0442b6b8d6",
           "width": 300
         },
         {
           "height": 64,
-          "url": "https://i.scdn.co/image/ab67616d000048511904cf63d8f039da1555ad18",
+          "url": "https://i.scdn.co/image/ab67616d00004851c966c2f4e08aee0442b6b8d6",
           "width": 64
         }
       ],
-      "name": "Venice",
-      "release_date": "2014-10-28",
+      "name": "Future Nostalgia",
+      "release_date": "2020-03-27",
       "release_date_precision": "day",
-      "total_tracks": 16,
+      "total_tracks": 11,
       "type": "album",
-      "uri": "spotify:album:2DOiha5oI19Dmw5M9ryHD8"
+      "uri": "spotify:album:7fJJK56U9fHixgO0HQkhtI"
     },
     "artists": [
       {
         "external_urls": {
-          "spotify": "https://open.spotify.com/artist/3jK9MiCrA42lLAdMGUZpwa"
+          "spotify": "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we"
         },
-        "href": "https://api.spotify.com/v1/artists/3jK9MiCrA42lLAdMGUZpwa",
-        "id": "3jK9MiCrA42lLAdMGUZpwa",
-        "name": "Anderson .Paak",
+        "href": "https://api.spotify.com/v1/artists/6M2wZ9GZgrQXHCFfjv46we",
+        "id": "6M2wZ9GZgrQXHCFfjv46we",
+        "name": "Dua Lipa",
         "type": "artist",
-        "uri": "spotify:artist:3jK9MiCrA42lLAdMGUZpwa"
-      },
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/3QTDHixorJelOLxoxcjqGx"
-        },
-        "href": "https://api.spotify.com/v1/artists/3QTDHixorJelOLxoxcjqGx",
-        "id": "3QTDHixorJelOLxoxcjqGx",
-        "name": "SiR",
-        "type": "artist",
-        "uri": "spotify:artist:3QTDHixorJelOLxoxcjqGx"
+        "uri": "spotify:artist:6M2wZ9GZgrQXHCFfjv46we"
       }
     ],
     "available_markets": [
+      "AD",
       "AE",
       "AR",
       "AU",
+      "BE",
+      "BG",
       "BH",
       "BO",
       "BR",
@@ -145,37 +167,63 @@
       "CL",
       "CO",
       "CR",
+      "CY",
+      "CZ",
+      "DK",
       "DO",
       "DZ",
       "EC",
+      "EE",
       "EG",
+      "ES",
+      "FI",
+      "FR",
+      "GB",
+      "GR",
       "GT",
       "HK",
       "HN",
+      "HU",
       "ID",
+      "IE",
       "IL",
-      "IN",
+      "IS",
+      "IT",
       "JO",
       "JP",
       "KW",
       "LB",
+      "LI",
+      "LT",
+      "LU",
+      "LV",
       "MA",
+      "MC",
+      "MT",
       "MX",
       "MY",
       "NI",
+      "NL",
+      "NO",
       "NZ",
       "OM",
       "PA",
       "PE",
       "PH",
+      "PL",
       "PS",
+      "PT",
       "PY",
       "QA",
+      "RO",
       "SA",
+      "SE",
       "SG",
+      "SK",
       "SV",
       "TH",
       "TN",
+      "TR",
       "TW",
       "US",
       "UY",
@@ -183,23 +231,23 @@
       "ZA"
     ],
     "disc_number": 1,
-    "duration_ms": 194011,
-    "explicit": true,
+    "duration_ms": 258004,
+    "explicit": false,
     "external_ids": {
-      "isrc": "USUYG1054264"
+      "isrc": "GBAHT1901302"
     },
     "external_urls": {
-      "spotify": "https://open.spotify.com/track/0YOTE8vEGduSABT8QE55rK"
+      "spotify": "https://open.spotify.com/track/4rPkN1FMzQyFNP9cLUGIIB"
     },
-    "href": "https://api.spotify.com/v1/tracks/0YOTE8vEGduSABT8QE55rK",
-    "id": "0YOTE8vEGduSABT8QE55rK",
+    "href": "https://api.spotify.com/v1/tracks/4rPkN1FMzQyFNP9cLUGIIB",
+    "id": "4rPkN1FMzQyFNP9cLUGIIB",
     "is_local": false,
-    "name": "Already",
-    "popularity": 48,
-    "preview_url": "https://p.scdn.co/mp3-preview/dba20eb4e3d3a6dfb8100f607011b988865a5e9d?cid=1e8545657dcf4b68834202d8d877149c",
-    "track_number": 7,
+    "name": "Love Again",
+    "popularity": 69,
+    "preview_url": "https://p.scdn.co/mp3-preview/529988421ff54086e5a2375ed16e2185b051b22c?cid=1e8545657dcf4b68834202d8d877149c",
+    "track_number": 8,
     "type": "track",
-    "uri": "spotify:track:0YOTE8vEGduSABT8QE55rK"
+    "uri": "spotify:track:4rPkN1FMzQyFNP9cLUGIIB"
   },
   "currently_playing_type": "track",
   "actions": {
