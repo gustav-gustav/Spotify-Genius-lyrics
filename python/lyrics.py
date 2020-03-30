@@ -63,6 +63,8 @@ class Lyrics:
                 else:
                     #call the lyrics function
                     self.genius()
+                    #call for the web scraper
+                    self.scraper()
             except AttributeError:
                 pass
             except KeyboardInterrupt:
@@ -130,33 +132,31 @@ class Lyrics:
                 break
         #if it does, grabs the URL for the lyrics
         if song_hit:
-            song_url = song_hit['result']['url']
-            #call for the web scraper
-            self.scraper(song_url)
-            if self.CONSOLE:
-                print('-'*70, '\n')
-                print(self.HEAD)
-                print(self.LYRICS)
-            #writes the lyrics to a file
-            self.writer()
-            # self.poster({"HEAD": self.HEAD, "BODY": self.LYRICS})
-            #writes the lyric to the album lyrics
-            self.lywriter()
+            self.genius_url = song_hit['result']['url']
         else:
             message = f'Could not find lyrics for {self.HEAD}'
             if self.CONSOLE:
                 print(message)
 
     @conditional_decorator(timer, 'debug')
-    def scraper(self, url):
+    def scraper(self):
         #this print has  to be this long so it erases the genius print
         if self.CONSOLE:
             print('retrieving lyrics...                          ', end='\r')
-        page = requests.get(url)
+        page = requests.get(self.genius_url)
         html = BeautifulSoup(page.text, 'html.parser')
         [h.extract() for h in html('script')]
         #going through source page, the lyrics are identified as such
         self.LYRICS = html.find('div', class_='lyrics').get_text()
+        if self.CONSOLE:
+            print('-'*70, '\n')
+            print(self.HEAD)
+            print(self.LYRICS)
+        #writes the lyrics to a file
+        self.writer()
+        # self.poster({"HEAD": self.HEAD, "BODY": self.LYRICS})
+        #writes the lyric to the album lyrics
+        self.lywriter()
 
     def writer(self):
         with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
