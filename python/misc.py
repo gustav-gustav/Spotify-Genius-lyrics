@@ -123,8 +123,12 @@ class Timer:
 class ResponseTimer(Timer):
     def __init__(self, function):
         super().__init__(function)
-        param = ''
-        self.string = f"{param} {self.string}"
+        self.param = ""  # self.value.status_code
+        self.string = f"{self.param}{self.string}"
+
+    def __call__(self, *args, **kwargs):
+        super().__call__(*args, **kwargs)
+
 
 
 def conditional_decorator(decoration, member):
