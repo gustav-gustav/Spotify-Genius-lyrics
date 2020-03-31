@@ -111,24 +111,21 @@ def timer(function):
 class Timer:
     def __init__(self, function):
         self.function = function
-        self.string = f"{self.function.__name__!r} finished in: "
 
     def __call__(self, *args, **kwargs):
         start = perf_counter()
         self.value = self.function(*args, **kwargs)
         self.elapsed = float(f"{(perf_counter() - start):.2f}")
-        print(f"{self.string}{self.elapsed}")
+        self.string = f"{self.function.__name__!r} finished in: {self.elapsed}"
+        self.printer()
         return self.value
 
+    def printer(self):
+        print(self.string)
+
 class ResponseTimer(Timer):
-    def __init__(self, function):
-        super().__init__(function)
-        self.param = ""  # self.value.status_code
-        self.string = f"{self.param}{self.string}"
-
-    def __call__(self, *args, **kwargs):
-        super().__call__(*args, **kwargs)
-
+    def printer(self):
+        print(f"{self.value.status_code} {self.string}")
 
 
 def conditional_decorator(decoration, member):

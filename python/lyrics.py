@@ -46,6 +46,9 @@ class Lyrics:
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
         #debug bool
         self.debug = args.debug
+        #testing RequestTimer
+        # if self.debug:
+        #     requests.get = ResponseTimer(requests.get)
         # interval to make requests to API
         self.sleep = 2
         #call to main function
