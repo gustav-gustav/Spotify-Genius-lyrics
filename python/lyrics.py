@@ -8,7 +8,7 @@ import sys
 import glob
 import argparse
 #image downloader, spotipy token handler, special characters remover
-from misc import Auth, Downloader, Timer, ResponseTimer, conditional_decorator, char_remover
+from misc import Auth, Downloader, Timer, ResponseTimer, conditional_decorator, char_remover, sleeper
 
 class Lyrics:
     def __init__(self):
@@ -46,9 +46,10 @@ class Lyrics:
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
         #debug bool
         self.debug = args.debug
-        #testing RequestTimer
+        #testing logging functions
         # if self.debug:
-        #     requests.get = ResponseTimer(requests.get)
+            # requests.get = ResponseTimer(requests.get)
+            # time.sleep = sleeper(time.sleep)
         # interval to make requests to API
         self.sleep = 2
         #call to main function

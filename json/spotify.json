@@ -10,7 +10,7 @@
   },
   "shuffle_state": false,
   "repeat_state": "off",
-  "timestamp": 1585625847236,
+  "timestamp": 1585627110255,
   "context": {
     "external_urls": {
       "spotify": "https://open.spotify.com/album/7fJJK56U9fHixgO0HQkhtI"
@@ -19,7 +19,7 @@
     "type": "album",
     "uri": "spotify:album:7fJJK56U9fHixgO0HQkhtI"
   },
-  "progress_ms": 5340,
+  "progress_ms": 156071,
   "item": {
     "album": {
       "album_type": "album",

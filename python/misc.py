@@ -127,6 +127,12 @@ class ResponseTimer(Timer):
     def printer(self):
         print(f"{self.value.status_code} {self.string}")
 
+def sleeper(function):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        print(f'sleeping for {args[0]} secs')
+        function(args[0])
+    return wrapper
 
 def conditional_decorator(decoration, member):
     def decorator(method):
