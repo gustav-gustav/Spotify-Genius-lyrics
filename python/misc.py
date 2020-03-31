@@ -102,7 +102,7 @@ def timer(function):
         start = perf_counter()
         value = function(*args, **kwargs)
         elapsed = float(f"{(perf_counter() - start):.2f}")
-        print(f'{function.__name__!r} finished in: {elapsed}')
+        print(f'{function.__name__!r} finished in: {elapsed}' + " "*20)
         write_statistics(function, elapsed)
         return value
     return wrapper_timer
@@ -116,7 +116,7 @@ class Timer:
         start = perf_counter()
         self.value = self.function(*args, **kwargs)
         self.elapsed = float(f"{(perf_counter() - start):.2f}")
-        self.string = f"{self.function.__name__!r} finished in: {self.elapsed}"
+        self.string = f"{self.function.__name__!r} finished in: {self.elapsed}" + " "*20
         self.printer()
         return self.value
 

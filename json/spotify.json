@@ -10,7 +10,7 @@
   },
   "shuffle_state": false,
   "repeat_state": "off",
-  "timestamp": 1585625085559,
+  "timestamp": 1585625847236,
   "context": {
     "external_urls": {
       "spotify": "https://open.spotify.com/album/7fJJK56U9fHixgO0HQkhtI"
@@ -19,7 +19,7 @@
     "type": "album",
     "uri": "spotify:album:7fJJK56U9fHixgO0HQkhtI"
   },
-  "progress_ms": 7207,
+  "progress_ms": 5340,
   "item": {
     "album": {
       "album_type": "album",
@@ -231,30 +231,29 @@
       "ZA"
     ],
     "disc_number": 1,
-    "duration_ms": 184881,
+    "duration_ms": 194607,
     "explicit": false,
     "external_ids": {
-      "isrc": "GBAHT1901177"
+      "isrc": "GBAHT1901300"
     },
     "external_urls": {
-      "spotify": "https://open.spotify.com/track/6zrJLhslleCHby0wbUnvVy"
+      "spotify": "https://open.spotify.com/track/6DXZiYUbrYgrVIhfX3U9Z2"
     },
-    "href": "https://api.spotify.com/v1/tracks/6zrJLhslleCHby0wbUnvVy",
-    "id": "6zrJLhslleCHby0wbUnvVy",
+    "href": "https://api.spotify.com/v1/tracks/6DXZiYUbrYgrVIhfX3U9Z2",
+    "id": "6DXZiYUbrYgrVIhfX3U9Z2",
     "is_local": false,
-    "name": "Future Nostalgia",
-    "popularity": 73,
-    "preview_url": "https://p.scdn.co/mp3-preview/64247f219b56d8a139de93a33f5ed5e94e9fd8ec?cid=1e8545657dcf4b68834202d8d877149c",
-    "track_number": 1,
+    "name": "Pretty Please",
+    "popularity": 74,
+    "preview_url": "https://p.scdn.co/mp3-preview/2c78fa0e4f458493616696133748b6ce81699ca6?cid=1e8545657dcf4b68834202d8d877149c",
+    "track_number": 6,
     "type": "track",
-    "uri": "spotify:track:6zrJLhslleCHby0wbUnvVy"
+    "uri": "spotify:track:6DXZiYUbrYgrVIhfX3U9Z2"
   },
   "currently_playing_type": "track",
   "actions": {
     "disallows": {
-      "pausing": true,
-      "skipping_prev": true
+      "resuming": true
     }
   },
-  "is_playing": false
+  "is_playing": true
 }
