@@ -8,7 +8,7 @@ import sys
 import glob
 import argparse
 #image downloader, spotipy token handler, special characters remover
-from misc import Auth, Downloader, Timer, ResponseTimer, conditional_decorator, char_remover, sleeper
+from misc import Auth, Downloader, Timer, ResponseTimer, conditional_decorator, char_remover
 
 class Lyrics:
     def __init__(self):
