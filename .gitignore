@@ -1,5 +1,8 @@
 /.vscode/
 /__pycache__/
+/json/spotify.json
+/json/genius.json
+/json/statistics.json
 templates/home.html
 templates/layout.html
 python/img_downloader.py
