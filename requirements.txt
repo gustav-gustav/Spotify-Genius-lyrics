@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 astroid==2.3.3
 autopep8==1.4.4
 beautifulsoup4==4.6.3
@@ -28,3 +29,11 @@ typed-ast==1.4.0
 urllib3==1.23
 Werkzeug==0.16.0
 wrapt==1.11.2
+=======
+beautifulsoup4==4.8.2
+Flask==1.1.1
+matplotlib==3.2.1
+numpy==1.18.2
+requests==2.23.0
+spotipy==2.10.0
+>>>>>>> fd32d77575c1399442de153de682c58614f9c65c
