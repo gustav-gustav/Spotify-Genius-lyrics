@@ -1,5 +1,6 @@
 /.vscode/
 /__pycache__/
+/python/__pycache__/
 /json/spotify.json
 /json/genius.json
 /json/statistics.json
