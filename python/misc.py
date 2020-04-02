@@ -127,7 +127,10 @@ class Timer:
 class ResponseTimer(Timer):
     def printer(self):
         parsed = urlparse(self.value.url)
-        endpoint = parsed.path
+        # print(parsed)
+        endpoint = parsed.netloc
+        if parsed.path:
+            endpoint += parsed.path
         if parsed.params:
             endpoint += parsed.params
         if parsed.query:
@@ -135,12 +138,6 @@ class ResponseTimer(Timer):
         endpoint = endpoint.replace("//", "/")
         print(f"{self.value.status_code}@{endpoint!r} {self.string_elapsed}")
 
-def sleeper(function):
-    @wraps(function)
-    def wrapper(*args, **kwargs):
-        print(f'sleeping for {args[0]} secs')
-        function(args[0])
-    return wrapper
 
 def conditional_decorator(decoration, member):
     def decorator(method):
