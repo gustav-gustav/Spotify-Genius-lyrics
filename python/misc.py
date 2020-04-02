@@ -108,20 +108,28 @@ def timer(function):
 
 
 class Timer:
-    def __init__(self, function):
+    def __init__(self, function, write=False):
         self.function = function
+        self.function_name = function.__name__
+        self.write_name = self.function_name
+        self.write = write
 
     def __call__(self, *args, **kwargs):
         start = perf_counter()
         self.value = self.function(*args, **kwargs)
         self.elapsed = float(f"{(perf_counter() - start):.2f}")
         self.string_elapsed = f"finished in: {self.elapsed}"
-        self.string = f"{self.function.__name__!r} {self.string_elapsed}"
+        self.string = f"{self.function_name!r} {self.string_elapsed}"
         self.printer()
+        self.writer()
         return self.value
 
     def printer(self):
         print(f"{self.string}{self.elapsed}")
+
+    def writer(self):
+        if self.write:
+            write_statistics(self.function_name, self.elapsed)
 
 
 class ResponseTimer(Timer):
@@ -136,6 +144,7 @@ class ResponseTimer(Timer):
         if parsed.query:
             endpoint += parsed.query
         endpoint = endpoint.replace("//", "/")
+        self.write_name = endpoint
         print(f"{self.value.status_code}@{endpoint!r} {self.string_elapsed}")
 
 
@@ -152,9 +161,8 @@ def conditional_decorator(decoration, member):
         return wrapper
     return decorator
 
-def write_statistics(function, value):
+def write_statistics(name, value):
     filename = f"statistics.json"
-    function_name = function.__name__
     path = os.path.join(os.environ['LYRICS_PATH'], 'json', filename)
     if not os.path.isfile(path):
         with open(path, "w+") as create_file:
@@ -162,10 +170,10 @@ def write_statistics(function, value):
 
     with open(path, "r") as json_read:
         json_read = json.load(json_read)
-        if function_name not in json_read:
-            json_read[function_name] = [value]
+        if name not in json_read:
+            json_read[name] = [value]
         else:
-            json_read[function_name].append(value)
+            json_read[name].append(value)
 
     with open(path, "w") as json_dump:
         json.dump(json_read, json_dump)
