@@ -8,8 +8,6 @@ import spotipy
 import spotipy.util as util
 from functools import wraps
 from time import perf_counter, sleep
-import matplotlib.pyplot as plt
-
 
 
 class Downloader:
@@ -111,24 +109,28 @@ def timer(function):
 class Timer:
     def __init__(self, function):
         self.function = function
+        # print(dir(self.function))
         self.string = f"{self.function.__name__!r} finished in: "
 
     def __call__(self, *args, **kwargs):
         start = perf_counter()
         self.value = self.function(*args, **kwargs)
         self.elapsed = float(f"{(perf_counter() - start):.2f}")
-        print(f"{self.string}{self.elapsed}")
+        self.printer()
         return self.value
 
-class ResponseTimer(Timer):
-    def __init__(self, function):
-        super().__init__(function)
-        self.param = ""  # self.value.status_code
-        self.string = f"{self.param}{self.string}"
+    def printer(self):
+        print(f"{self.string}{self.elapsed}")
 
+class ResponseTimer(Timer):
     def __call__(self, *args, **kwargs):
         super().__call__(*args, **kwargs)
+        self.param = self.value.status_code
+        self.string = f"{self.param}{self.string}"
+        return self.value
 
+    def printer(self):
+        print(f"{self.value.status_code} {self.string}{self.elapsed}")
 
 
 def conditional_decorator(decoration, member):
