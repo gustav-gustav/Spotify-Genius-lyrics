@@ -9,10 +9,6 @@ import spotipy.util as util
 from urllib.parse import urlparse
 from functools import wraps
 from time import perf_counter, sleep
-<<<<<<< HEAD
-=======
-
->>>>>>> fd32d77575c1399442de153de682c58614f9c65c
 
 
 class Downloader:
@@ -114,40 +110,19 @@ def timer(function):
 class Timer:
     def __init__(self, function):
         self.function = function
-<<<<<<< HEAD
-        # print(dir(self.function))
-        self.string = f"{self.function.__name__!r} finished in: "
-=======
->>>>>>> fd32d77575c1399442de153de682c58614f9c65c
 
     def __call__(self, *args, **kwargs):
         start = perf_counter()
         self.value = self.function(*args, **kwargs)
         self.elapsed = float(f"{(perf_counter() - start):.2f}")
-<<<<<<< HEAD
-=======
         self.string_elapsed = f"finished in: {self.elapsed}"
         self.string = f"{self.function.__name__!r} {self.string_elapsed}"
->>>>>>> fd32d77575c1399442de153de682c58614f9c65c
         self.printer()
         return self.value
 
     def printer(self):
-<<<<<<< HEAD
         print(f"{self.string}{self.elapsed}")
 
-class ResponseTimer(Timer):
-    def __call__(self, *args, **kwargs):
-        super().__call__(*args, **kwargs)
-        self.param = self.value.status_code
-        self.string = f"{self.param}{self.string}"
-        return self.value
-=======
-        print(self.string)
->>>>>>> fd32d77575c1399442de153de682c58614f9c65c
-
-    def printer(self):
-        print(f"{self.value.status_code} {self.string}{self.elapsed}")
 
 class ResponseTimer(Timer):
     def printer(self):
