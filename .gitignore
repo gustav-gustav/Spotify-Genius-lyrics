@@ -1,12 +1,8 @@
-.vscode/launch.json
-__pycache__/
-json/
+/.vscode/
+/__pycache__/
 templates/home.html
 templates/layout.html
 python/img_downloader.py
 python/test.py
 python/auth.py
 lyrics.txt
-json/.cache-12148438227
-json/genius.json
-json/spotify.json

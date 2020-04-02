@@ -8,7 +8,6 @@ import spotipy
 import spotipy.util as util
 from functools import wraps
 from time import perf_counter, sleep
-import matplotlib.pyplot as plt
 
 
 
