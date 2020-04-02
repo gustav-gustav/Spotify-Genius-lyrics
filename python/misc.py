@@ -6,6 +6,7 @@ import glob
 import json
 import spotipy
 import spotipy.util as util
+from urllib.parse import urlparse
 from functools import wraps
 from time import perf_counter, sleep
 
@@ -115,16 +116,25 @@ class Timer:
         start = perf_counter()
         self.value = self.function(*args, **kwargs)
         self.elapsed = float(f"{(perf_counter() - start):.2f}")
-        self.string = f"{self.function.__name__!r} finished in: {self.elapsed}" + " "*20
+        self.string_elapsed = f"finished in: {self.elapsed}"
+        self.string = f"{self.function.__name__!r} {self.string_elapsed}"
         self.printer()
         return self.value
 
     def printer(self):
         print(self.string)
 
+
 class ResponseTimer(Timer):
     def printer(self):
-        print(f"{self.value.status_code} {self.string}")
+        parsed = urlparse(self.value.url)
+        endpoint = parsed.path
+        if parsed.params:
+            endpoint += parsed.params
+        if parsed.query:
+            endpoint += parsed.query
+        endpoint = endpoint.replace("//", "/")
+        print(f"{self.value.status_code}@{endpoint!r} {self.string_elapsed}")
 
 def sleeper(function):
     @wraps(function)

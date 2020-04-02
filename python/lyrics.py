@@ -47,9 +47,8 @@ class Lyrics:
         #debug bool
         self.debug = args.debug
         #testing logging functions
-        # if self.debug:
-            # requests.get = ResponseTimer(requests.get)
-            # time.sleep = sleeper(time.sleep)
+        if self.debug:
+            requests.get = ResponseTimer(requests.get)
         # interval to make requests to API
         self.sleep = 2
         #call to main function
@@ -77,7 +76,7 @@ class Lyrics:
             except KeyboardInterrupt:
                 sys.exit(0)
 
-    @conditional_decorator(Timer, 'debug')
+    # @conditional_decorator(Timer, 'debug')
     def spotify(self):
         #request to spotify API | look for scopes in the self.HEADERS
         response = requests.get(
@@ -117,7 +116,7 @@ class Lyrics:
                 #update self.TOKENS and self. HEADERS
                 self.__init__()
 
-    @conditional_decorator(Timer, 'debug')
+    # @conditional_decorator(Timer, 'debug')
     def genius(self):
         if self.CONSOLE:
             print('Crossing references with Genius\'s database...', end='\r')
@@ -145,7 +144,7 @@ class Lyrics:
             if self.CONSOLE:
                 print(message)
 
-    @conditional_decorator(Timer, 'debug')
+    # @conditional_decorator(Timer, 'debug')
     def scraper(self):
         #this print has  to be this long so it erases the genius print
         if self.CONSOLE:
