@@ -1,8 +1,12 @@
-/.vscode/
-/__pycache__/
-templates/home.html
-templates/layout.html
+/python/__pycache__/
 python/img_downloader.py
 python/test.py
 python/auth.py
+/__pycache__/
+/.vscode/
+/json/spotify.json
+/json/genius.json
+/json/statistics.json
+templates/home.html
+templates/layout.html
 lyrics.txt

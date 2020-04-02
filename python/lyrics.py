@@ -171,8 +171,13 @@ class Lyrics:
 
     def check(self):
         #gets the current song
-        with io.open(self.FULL_LYRICS_PATH, 'r', encoding='utf-8') as f:
-            self.CURRENT_SONG = f.readline().strip('\n')
+        try:
+            with io.open(self.FULL_LYRICS_PATH, 'r', encoding='utf-8') as f:
+                self.CURRENT_SONG = f.readline().strip('\n')
+        except Exception as e:
+            print(e)
+            with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
+                f.write("")
 
     def lywriter(self):
         #globs all files to search if the currently playing song's album has been created
