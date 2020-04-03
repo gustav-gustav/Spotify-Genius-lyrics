@@ -229,9 +229,9 @@ class Lyrics:
     def cache(self):
         #the .cache-* is created by the spotipy token handler
         #it contains the access_token, refresh_token and scope
-        cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
-        #loads the cache
         try:
+            cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
+            #loads the cache
             with io.open(cache_file, 'r') as f:
                 cache = json.load(f)
             #sets the access_token
