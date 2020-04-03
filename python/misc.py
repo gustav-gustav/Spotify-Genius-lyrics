@@ -125,8 +125,10 @@ class Timer:
             self.printer()
             self.writer()
             return self.value
-        except Exception as e:
+        except ConnectionError as e:
             print(e)
+        except Exception as e:
+            pass
 
     def printer(self):
         print(f"{self.string}{self.elapsed}")

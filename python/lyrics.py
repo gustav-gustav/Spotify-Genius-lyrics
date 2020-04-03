@@ -175,8 +175,10 @@ class Lyrics:
             with io.open(self.FULL_LYRICS_PATH, 'r', encoding='utf-8') as f:
                 self.CURRENT_SONG = f.readline().strip('\n')
         except Exception as e:
-            print(e)
+            if self.debug:
+                print(e)
             with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
+                self.CURRENT_SONG = ""
                 f.write("")
 
     def lywriter(self):
