@@ -13,7 +13,6 @@ from misc import Auth, Downloader, Timer, ResponseTimer, conditional_decorator, 
 class Lyrics:
     def __init__(self):
         #call to Auth() to grab spotifyObject
-        self.spotifyObject = Auth().spotifyObject
         #argparse stuff
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', action="store_true", default=False)
@@ -23,6 +22,12 @@ class Lyrics:
             self.CONSOLE = False
         else:
             self.CONSOLE = True
+        #debug bool
+        self.debug = args.debug
+        #testing logging functions
+        if self.debug:
+            requests.get = ResponseTimer(requests.get, write=True)
+        self.spotifyObject = Auth(debug=self.debug).spotifyObject
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
         self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
@@ -44,11 +49,6 @@ class Lyrics:
         #location of lyrics for currently playing song
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
-        #debug bool
-        self.debug = args.debug
-        #testing logging functions
-        if self.debug:
-            requests.get = ResponseTimer(requests.get, write=True)
         # interval to make requests to API
         self.sleep = 2
         #call to main function

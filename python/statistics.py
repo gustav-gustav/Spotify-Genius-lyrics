@@ -6,12 +6,10 @@ from itertools import count
 
 path = os.path.join(os.environ['LYRICS_PATH'], 'json', 'statistics.json')
 index = count()
-x = []
 x_vals = []
 y_vals = []
 
 def animate(i):
-    x.append(next(index))
 
     with open(path, 'r') as json_load:
         json_read = json.load(json_load)
@@ -21,9 +19,9 @@ def animate(i):
         for key in json_keys:
 
             plt.plot([index for index in range(len(json_read[key]))],
-                     json_read[key], label=key)
+                     [value["value"] for value in json_read[key]], label=key)
 
-    plt.legend(loc='upper left')
+    plt.legend(loc='upper right')
     plt.tight_layout()
 
 ani = FuncAnimation(plt.gcf(), animate, interval=1000)
