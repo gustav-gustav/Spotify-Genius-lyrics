@@ -116,14 +116,17 @@ class Timer:
         self.write = write
 
     def __call__(self, *args, **kwargs):
-        start = perf_counter()
-        self.value = self.function(*args, **kwargs)
-        self.elapsed = float(f"{(perf_counter() - start):.2f}")
-        self.string_elapsed = f"finished in: {self.elapsed}s"
-        self.string = f"{self.function_name!r} {self.string_elapsed}"
-        self.printer()
-        self.writer()
-        return self.value
+        try:
+            start = perf_counter()
+            self.value = self.function(*args, **kwargs)
+            self.elapsed = float(f"{(perf_counter() - start):.2f}")
+            self.string_elapsed = f"finished in: {self.elapsed}s"
+            self.string = f"{self.function_name!r} {self.string_elapsed}"
+            self.printer()
+            self.writer()
+            return self.value
+        except Exception as e:
+            print(e)
 
     def printer(self):
         print(f"{self.string}{self.elapsed}")
