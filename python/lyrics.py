@@ -48,7 +48,7 @@ class Lyrics:
         self.debug = args.debug
         #testing logging functions
         if self.debug:
-            requests.get = ResponseTimer(requests.get)
+            requests.get = ResponseTimer(requests.get, write=True)
         # interval to make requests to API
         self.sleep = 2
         #call to main function
