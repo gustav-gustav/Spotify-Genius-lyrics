@@ -217,7 +217,7 @@ class Lyrics:
         #globs .jpg to a list if any
         image = glob.glob(os.path.join(album_path, "*.jpg"))
         if full_filename not in image:
-            self.CONSOLE:
+            if self.CONSOLE:
                 print(f"downloading {filename}", end="\r")
 
             #makes a request to the image url provided by spotify
