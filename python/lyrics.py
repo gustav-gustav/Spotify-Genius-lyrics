@@ -6,14 +6,14 @@ import io
 import time
 import sys
 import glob
+import shutil
 import argparse
 #image downloader, spotipy token handler, special characters remover
-from misc import Auth, Downloader, Timer, ResponseTimer, conditional_decorator, char_remover
+from misc import Auth, Timer, ResponseTimer, conditional_decorator, char_remover
 
 class Lyrics:
     def __init__(self):
         #call to Auth() to grab spotifyObject
-        self.spotifyObject = Auth().spotifyObject
         #argparse stuff
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', action="store_true", default=False)
@@ -23,6 +23,12 @@ class Lyrics:
             self.CONSOLE = False
         else:
             self.CONSOLE = True
+        #debug bool
+        self.debug = args.debug
+        #testing logging functions
+        if self.debug:
+            requests.get = ResponseTimer(requests.get, write=True)
+        self.spotifyObject = Auth(debug=self.debug).spotifyObject
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
         self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
@@ -44,11 +50,6 @@ class Lyrics:
         #location of lyrics for currently playing song
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
-        #debug bool
-        self.debug = args.debug
-        #testing logging functions
-        if self.debug:
-            requests.get = ResponseTimer(requests.get)
         # interval to make requests to API
         self.sleep = 2
         #call to main function
@@ -175,8 +176,10 @@ class Lyrics:
             with io.open(self.FULL_LYRICS_PATH, 'r', encoding='utf-8') as f:
                 self.CURRENT_SONG = f.readline().strip('\n')
         except Exception as e:
-            print(e)
+            if self.debug:
+                print(e)
             with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
+                self.CURRENT_SONG = ""
                 f.write("")
 
     def lywriter(self):
@@ -201,7 +204,38 @@ class Lyrics:
                 lyric_file.write(self.LYRICS)
 
         #calls the image downloader with the directory to download to and debug state
-        Downloader(full_album_dir, debug=self.debug)
+        self.downloader(full_album_dir)
+
+    def downloader(self, album_path):
+        json_file = os.path.join(
+            os.environ['LYRICS_PATH'], 'json', "spotify.json")
+        #load json_file to variable
+        with open(json_file, "r") as f:
+            js = json.load(f)
+        #sets variables related to the song
+        album_path = album_path
+        artist = js["item"]["album"]["artists"][0]["name"]
+        name = js["item"]["album"]["name"]
+        height = js["item"]["album"]["images"][0]["height"]
+        width = js["item"]["album"]["images"][0]["width"]
+        url = js["item"]["album"]["images"][0]["url"]
+
+        #sets filename
+        filename = char_remover(
+            f"{artist}_{name}_{height}x{width}.jpg".replace(' ', '_'), replacer='x')
+        full_filename = os.path.join(album_path, filename)
+
+        #globs .jpg to a list if any
+        image = glob.glob(os.path.join(album_path, "*.jpg"))
+        if full_filename not in image:
+            if self.debug:
+                print(f"downloading {full_filename}", end="\r")
+
+            #makes a request to the image url provided by spotify
+            with requests.get(url, stream=True) as response:
+                with open(full_filename, "wb") as out_file:
+                    #uses shutil to pipe the response to a file
+                    shutil.copyfileobj(response.raw, out_file)
 
     def cache(self):
         #the .cache-* is created by the spotipy token handler
@@ -224,6 +258,9 @@ class Lyrics:
         path = os.path.join(self.JSON_PATH, f'{filename}.json')
         with io.open(path, 'w', encoding='utf-8') as f:
             json.dump(js, f, indent=2)
+
+
+
 
 
 if __name__ == '__main__':

@@ -8,47 +8,7 @@ import spotipy
 import spotipy.util as util
 from urllib.parse import urlparse
 from functools import wraps
-from time import perf_counter, sleep
-
-
-class Downloader:
-    def __init__(self, album_path, debug=False):
-        #sets the debug bool
-        self.debug = debug
-        self.json_file = os.path.join(os.environ['LYRICS_PATH'], 'json', "spotify.json")
-        #load json_file to variable
-        with open(self.json_file, "r") as f:
-            self.js = json.load(f)
-        #sets variables related to the song
-        self.album_path = album_path
-        self.artist = self.js["item"]["album"]["artists"][0]["name"]
-        self.name = self.js["item"]["album"]["name"]
-        self.height = self.js["item"]["album"]["images"][0]["height"]
-        self.width = self.js["item"]["album"]["images"][0]["width"]
-        self.url = self.js["item"]["album"]["images"][0]["url"]
-        #sets filename
-        self.filename = char_remover(
-            f"{self.artist}_{self.name}_{self.height}x{self.width}.jpg".replace(' ', '_'), replacer='x')
-        self.full_filename = os.path.join(self.album_path, self.filename)
-        #calls for the check function
-        self.check()
-
-    #checks if the image has already been downloaded to the album folder
-    def check(self):
-        #globs .jpg to a list if any
-        image = glob.glob(os.path.join(self.album_path, "*.jpg"))
-        if self.full_filename not in image:
-            if self.debug:
-                print(f"downloading {self.full_filename}", end="\r")
-            self.main()
-
-    def main(self):
-        #makes a request to the image url provided by spotify
-        response = requests.get(self.url, stream=True)
-        with open(self.full_filename, "wb") as out_file:
-            #uses shutil to pipe the response to a file
-            shutil.copyfileobj(response.raw, out_file)
-            del response
+from time import perf_counter, strftime
 
 
 class Auth:
@@ -108,20 +68,34 @@ def timer(function):
 
 
 class Timer:
-    def __init__(self, function):
+    def __init__(self, function, write=False):
+        self.__name__ = function.__name__
         self.function = function
+        self.function_name = function.__name__
+        self.write_name = self.function_name
+        self.write = write
 
     def __call__(self, *args, **kwargs):
-        start = perf_counter()
-        self.value = self.function(*args, **kwargs)
-        self.elapsed = float(f"{(perf_counter() - start):.2f}")
-        self.string_elapsed = f"finished in: {self.elapsed}"
-        self.string = f"{self.function.__name__!r} {self.string_elapsed}"
-        self.printer()
-        return self.value
+        try:
+            start = perf_counter()
+            self.value = self.function(*args, **kwargs)
+            self.elapsed = float(f"{(perf_counter() - start):.2f}")
+            self.string_elapsed = f"finished in: {self.elapsed}s"
+            self.string = f"{self.function_name!r} {self.string_elapsed}"
+            self.printer()
+            self.writer()
+            return self.value
+        except ConnectionError as e:
+            print(e)
+        except Exception as e:
+            pass
 
     def printer(self):
         print(f"{self.string}{self.elapsed}")
+
+    def writer(self):
+        if self.write:
+            write_statistics(self.write_name, self.elapsed)
 
 
 class ResponseTimer(Timer):
@@ -136,7 +110,15 @@ class ResponseTimer(Timer):
         if parsed.query:
             endpoint += parsed.query
         endpoint = endpoint.replace("//", "/")
+        if "lyrics" in endpoint:
+            self.write_name = f"{parsed.netloc}".replace("//", "/")
+        else:
+            self.write_name = endpoint
         print(f"{self.value.status_code}@{endpoint!r} {self.string_elapsed}")
+
+    def writer(self):
+        if self.write:
+            write_statistics(self.write_name, self.elapsed, self.value.status_code)
 
 
 def conditional_decorator(decoration, member):
@@ -152,20 +134,26 @@ def conditional_decorator(decoration, member):
         return wrapper
     return decorator
 
-def write_statistics(function, value):
+
+def write_statistics(name, value, status_code=None):
     filename = f"statistics.json"
-    function_name = function.__name__
     path = os.path.join(os.environ['LYRICS_PATH'], 'json', filename)
+    if status_code:
+        obj = {"value": value, "status_code": status_code,
+               "date": strftime('[%d/%m/%Y %H:%M:%S]')}
+    else:
+        obj = {"value": value}
     if not os.path.isfile(path):
-        with open(path, "w+") as create_file:
+        with open(path, "w") as create_file:
             json.dump({}, create_file)
 
     with open(path, "r") as json_read:
         json_read = json.load(json_read)
-        if function_name not in json_read:
-            json_read[function_name] = [value]
-        else:
-            json_read[function_name].append(value)
+
+    if name not in json_read:
+        json_read[name] = [obj]
+    else:
+        json_read[name].append(obj)
 
     with open(path, "w") as json_dump:
         json.dump(json_read, json_dump)
