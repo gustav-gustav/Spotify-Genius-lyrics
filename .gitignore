@@ -9,4 +9,4 @@ python/auth.py
 /json/statistics.json
 templates/home.html
 templates/layout.html
-lyrics.txt
+/lyrics.txt
