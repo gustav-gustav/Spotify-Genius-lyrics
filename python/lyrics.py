@@ -28,7 +28,7 @@ class Lyrics:
         #testing logging functions
         if self.debug:
             requests.get = ResponseTimer(requests.get, write=True)
-        self.spotifyObject = Auth(debug=self.debug).spotifyObject
+        # self.spotifyObject = Auth(debug=self.debug).spotifyObject
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
         self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
@@ -59,6 +59,7 @@ class Lyrics:
         #the program consists of looping through this main function
         while True:
             try:
+                #call to spotify api to get live status
                 self.spotify()
                 #checks the currently playing song
                 self.check()
@@ -68,10 +69,8 @@ class Lyrics:
                     time.sleep(self.sleep)
                 #if the song has changed, calls the genius API
                 else:
-                    #call the lyrics function
+                    #call to genius api
                     self.genius()
-                    #call for the web scraper
-                    self.scraper()
             except AttributeError:
                 pass
             except KeyboardInterrupt:
@@ -90,14 +89,14 @@ class Lyrics:
         #if response.status_code == 200 OK
         else:
             try:
-                js = response.json()
+                self.js = response.json()
                 #writes json to a file
                 #note that this is required for other functionality
-                self.serialize('spotify', js)
+                self.serialize('spotify', self.js)
                 #sets current variables from the song
-                self.song = js['item']['name']
-                self.artist = js['item']['artists'][0]['name']
-                self.album = js['item']['album']['name']
+                self.song = self.js['item']['name']
+                self.artist = self.js['item']['artists'][0]['name']
+                self.album = self.js['item']['album']['name']
                 self.album_dir = char_remover(f'{self.album} - {self.artist}', replacer='x')
                 self.HEAD = f'{self.song} - {self.artist}'
 
@@ -120,7 +119,7 @@ class Lyrics:
     # @conditional_decorator(Timer, 'debug')
     def genius(self):
         if self.CONSOLE:
-            print('Crossing references with Genius\'s database...', end='\r')
+            print('Crossing references with Genius\'s database...', end="\r")
         #call to API
         response = requests.get(self.BASE_URL['genius'], headers=self.HEADERS['genius'], data={
                           'q': f'{self.song} {self.artist}'})
@@ -140,16 +139,19 @@ class Lyrics:
         #if it does, grabs the URL for the lyrics
         if song_hit:
             self.genius_url = song_hit['result']['url']
+            #call for the web scraper
+            self.scraper()
         else:
-            message = f'Could not find lyrics for {self.HEAD}'
             if self.CONSOLE:
-                print(message)
+                print(f'Could not find lyrics for {self.HEAD}', end="\r")
+            time.sleep(self.sleep)
+        #writes the lyrics to a file
+        self.writer()
 
     # @conditional_decorator(Timer, 'debug')
     def scraper(self):
         #this print has  to be this long so it erases the genius print
-        if self.CONSOLE:
-            print('retrieving lyrics...                          ', end='\r')
+        print('retrieving lyrics...                          ', end="\r")
         page = requests.get(self.genius_url)
         html = BeautifulSoup(page.text, 'html.parser')
         [h.extract() for h in html('script')]
@@ -159,16 +161,9 @@ class Lyrics:
             print('-'*70, '\n')
             print(self.HEAD)
             print(self.LYRICS)
-        #writes the lyrics to a file
-        self.writer()
         # self.poster({"HEAD": self.HEAD, "BODY": self.LYRICS})
         #writes the lyric to the album lyrics
         self.lywriter()
-
-    def writer(self):
-        with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
-            f.write(self.HEAD)
-            f.write(self.LYRICS)
 
     def check(self):
         #gets the current song
@@ -207,18 +202,12 @@ class Lyrics:
         self.downloader(full_album_dir)
 
     def downloader(self, album_path):
-        json_file = os.path.join(
-            os.environ['LYRICS_PATH'], 'json', "spotify.json")
-        #load json_file to variable
-        with open(json_file, "r") as f:
-            js = json.load(f)
         #sets variables related to the song
-        album_path = album_path
-        artist = js["item"]["album"]["artists"][0]["name"]
-        name = js["item"]["album"]["name"]
-        height = js["item"]["album"]["images"][0]["height"]
-        width = js["item"]["album"]["images"][0]["width"]
-        url = js["item"]["album"]["images"][0]["url"]
+        artist = self.js["item"]["album"]["artists"][0]["name"]
+        name = self.js["item"]["album"]["name"]
+        height = self.js["item"]["album"]["images"][0]["height"]
+        width = self.js["item"]["album"]["images"][0]["width"]
+        url = self.js["item"]["album"]["images"][0]["url"]
 
         #sets filename
         filename = char_remover(
@@ -228,8 +217,8 @@ class Lyrics:
         #globs .jpg to a list if any
         image = glob.glob(os.path.join(album_path, "*.jpg"))
         if full_filename not in image:
-            if self.debug:
-                print(f"downloading {full_filename}", end="\r")
+            if self.CONSOLE:
+                print(f"downloading {filename}", end="\r")
 
             #makes a request to the image url provided by spotify
             with requests.get(url, stream=True) as response:
@@ -240,27 +229,31 @@ class Lyrics:
     def cache(self):
         #the .cache-* is created by the spotipy token handler
         #it contains the access_token, refresh_token and scope
-        cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
-        #loads the cache
-        with io.open(cache_file, 'r') as f:
-            cache = json.load(f)
-        #sets the access_token
         try:
+            cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
+            #loads the cache
+            with io.open(cache_file, 'r') as f:
+                cache = json.load(f)
+            #sets the access_token
             self.access_token = cache['access_token']
+
         except KeyError as e:
             if self.debug:
                 print(e)
                 Auth(debug=self.debug)
                 self.cache()
 
+    def writer(self):
+        with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
+            f.write(self.HEAD)
+            f.write(self.LYRICS)
+
     def serialize(self, filename, js):
-        #writes json to a file
-        path = os.path.join(self.JSON_PATH, f'{filename}.json')
-        with io.open(path, 'w', encoding='utf-8') as f:
-            json.dump(js, f, indent=2)
-
-
-
+        if self.debug:
+            #writes json to a file
+            path = os.path.join(self.JSON_PATH, f'{filename}.json')
+            with io.open(path, 'w', encoding='utf-8') as f:
+                json.dump(js, f, indent=2)
 
 
 if __name__ == '__main__':

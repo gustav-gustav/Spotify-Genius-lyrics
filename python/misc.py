@@ -114,7 +114,8 @@ class ResponseTimer(Timer):
             self.write_name = f"{parsed.netloc}".replace("//", "/")
         else:
             self.write_name = endpoint
-        print(f"{self.value.status_code}@{endpoint!r} {self.string_elapsed}")
+        print(
+            f"{strftime('[%d/%m/%Y %H:%M:%S]')} {self.value.status_code}@{endpoint!r} {self.string_elapsed} ")
 
     def writer(self):
         if self.write:
