@@ -43,7 +43,9 @@ class Lyrics:
         #headers for each API
         self.HEADERS = {'genius': {
             'Authorization':  f'Bearer {self.TOKENS["genius"]}'},
-            'spotify': {'Authorization':  f'Bearer {self.TOKENS["spotify"]}', 'Accept': 'application/json', 'Content-Type': 'application/json'}}
+            'spotify': {'Authorization':  f'Bearer {self.TOKENS["spotify"]}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'}}
 
         #location of where to save album cover art and lyrics
         self.ALBUM_PATH = os.environ['LYRICS_ALBUM']
