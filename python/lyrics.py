@@ -16,9 +16,9 @@ class Lyrics:
         #call to Auth() to grab spotifyObject
         #argparse stuff
         parser = argparse.ArgumentParser()
-        parser.add_argument('--web', '-w', action="store_true", default=False)
-        parser.add_argument('--debug', '-d', action="store_true", default=False)
-        parser.add_argument('--interval, -i', action='store', type=int, default=2)
+        parser.add_argument('--web', '-w', dest='web', action="store_true", default=False)
+        parser.add_argument('--debug', '-d', dest='debug', action="store_true", default=False)
+        parser.add_argument('--interval, -i', dest='interval', action='store', type=int, default=2)
         args = parser.parse_args()
         if args.web:
             self.CONSOLE = False
@@ -54,7 +54,7 @@ class Lyrics:
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
         # interval to make requests to API
-        self.sleep = 2
+        self.sleep = args.interval
         #call to main function
         self.main()
 
