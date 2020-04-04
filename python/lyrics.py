@@ -12,7 +12,7 @@ import argparse
 from misc import Auth, Timer, ResponseTimer, conditional_decorator, char_remover
 
 class Lyrics:
-    def __init__(self):
+    def __init__(self, decorator=True):
         #call to Auth() to grab spotifyObject
         #argparse stuff
         parser = argparse.ArgumentParser()
@@ -27,7 +27,7 @@ class Lyrics:
         #debug bool
         self.debug = args.debug
         #testing logging functions
-        if self.debug:
+        if self.debug and decorator:
             requests.get = ResponseTimer(requests.get, write=True)
         # self.spotifyObject = Auth(debug=self.debug).spotifyObject
         #base path set on environment variable (multi-platform)
@@ -117,7 +117,7 @@ class Lyrics:
                 Auth()
                 #calls for __init__() for the token to be updated by self.cache()
                 #update self.TOKENS and self. HEADERS
-                self.__init__()
+                self.__init__(decorator=False)
 
     # @conditional_decorator(Timer, 'debug')
     def genius(self):
