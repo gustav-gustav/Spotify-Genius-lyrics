@@ -77,7 +77,7 @@ class Lyrics:
             except AttributeError:
                 pass
             except KeyboardInterrupt:
-                sys.exit(0)
+                sys.exit()
 
     # @conditional_decorator(Timer, 'debug')
     def spotify(self):
