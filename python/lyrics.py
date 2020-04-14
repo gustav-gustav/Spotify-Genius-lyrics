@@ -78,6 +78,8 @@ class Lyrics:
                 pass
             except KeyboardInterrupt:
                 sys.exit()
+            except Exception as e:
+                print(e)
 
     # @conditional_decorator(Timer, 'debug')
     def spotify(self):
