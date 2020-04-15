@@ -63,18 +63,15 @@ def timer(function):
         value = function(*args, **kwargs)
         elapsed = float(f"{(perf_counter() - start):.2f}")
         print(f'{function.__name__!r} finished in: {elapsed}' + " "*20)
-        write_statistics(function, elapsed)
         return value
     return wrapper_timer
 
 
 class Timer:
-    def __init__(self, function, write=False):
+    def __init__(self, function):
         wraps(function)(self)
         self.function = function
         self.function_name = function.__name__
-        self.write_name = self.function_name
-        self.write = write
 
     def __call__(self, *args, **kwargs):
         try:
@@ -84,7 +81,6 @@ class Timer:
             self.string_elapsed = f"finished in: {self.elapsed}s"
             self.string = f"{self.function_name!r} {self.string_elapsed}"
             self.printer()
-            self.writer()
             return self.value
         except ConnectionError as e:
             print(e)
@@ -100,15 +96,9 @@ class Timer:
     def printer(self):
         print(f"{self.string_elapsed}")
 
-    def writer(self):
-        if self.write:
-            write_statistics(self.write_name, self.elapsed)
-
-
 class ResponseTimer(Timer):
     def printer(self):
         parsed = urlparse(self.value.url)
-        # print(parsed)
         endpoint = parsed.netloc
         if parsed.path:
             endpoint += parsed.path
@@ -117,17 +107,8 @@ class ResponseTimer(Timer):
         if parsed.query:
             endpoint += parsed.query
         endpoint = endpoint.replace("//", "/")
-        if "lyrics" in endpoint:
-            self.write_name = f"{parsed.netloc}".replace("//", "/")
-        else:
-            self.write_name = endpoint
         print(
             f"{strftime('[%d/%m/%Y %H:%M:%S]')} {self.value.status_code}@{endpoint!r} {self.string_elapsed} ")
-
-    def writer(self):
-        if self.write:
-            write_statistics(self.write_name, self.elapsed, self.value.status_code)
-
 
 def conditional_decorator(decoration, member):
     def decorator(method):
@@ -141,27 +122,3 @@ def conditional_decorator(decoration, member):
             return predecorated(*args, **kwargs)
         return wrapper
     return decorator
-
-
-def write_statistics(name, value, status_code=None):
-    filename = f"statistics.json"
-    path = os.path.join(os.environ['LYRICS_PATH'], 'json', filename)
-    if status_code:
-        obj = {"value": value, "status_code": status_code,
-               "date": strftime('[%d/%m/%Y %H:%M:%S]')}
-    else:
-        obj = {"value": value}
-    if not os.path.isfile(path):
-        with open(path, "w") as create_file:
-            json.dump({}, create_file)
-
-    with open(path, "r") as json_read:
-        json_read = json.load(json_read)
-
-    if name not in json_read:
-        json_read[name] = [obj]
-    else:
-        json_read[name].append(obj)
-
-    with open(path, "w") as json_dump:
-        json.dump(json_read, json_dump)
