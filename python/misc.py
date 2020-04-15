@@ -1,4 +1,5 @@
 import json
+import types
 import requests
 import os
 import shutil
@@ -69,7 +70,7 @@ def timer(function):
 
 class Timer:
     def __init__(self, function, write=False):
-        self.__name__ = function.__name__
+        wraps(function)(self)
         self.function = function
         self.function_name = function.__name__
         self.write_name = self.function_name
@@ -90,8 +91,14 @@ class Timer:
         except Exception as e:
             pass
 
+    def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        else:
+            return types.MethodType(self, instance)
+
     def printer(self):
-        print(f"{self.string}{self.elapsed}")
+        print(f"{self.string_elapsed}")
 
     def writer(self):
         if self.write:
