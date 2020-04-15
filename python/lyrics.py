@@ -8,8 +8,10 @@ import sys
 import glob
 import shutil
 import argparse
+# import decorators
+from decorators import ResponseTimer
 #image downloader, spotipy token handler, special characters remover
-from misc import Auth, Timer, ResponseTimer, conditional_decorator, char_remover
+from misc import Auth, char_remover
 
 class Lyrics:
     def __init__(self, decorator=True):
@@ -28,31 +30,32 @@ class Lyrics:
         self.debug = args.debug
         #testing logging functions
         if self.debug and decorator:
-            requests.get = ResponseTimer(requests.get, write=True)
+            requests.get = ResponseTimer(requests.get)
         # self.spotifyObject = Auth(debug=self.debug).spotifyObject
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
-        self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
-        self.JSON_PATH = os.path.join(self.BASE_PATH, "json")
-        # sets the access token
-        self.cache()
-        self.TOKENS = {'genius': os.environ['LYRICS_GENIUS_TOKEN'],
-                       'spotify': self.access_token}
-        #URL of API
-        self.BASE_URL = {'genius': 'https://api.genius.com/search',
-                         'spotify': 'https://api.spotify.com/v1/me/player'}
-        #headers for each API
-        self.HEADERS = {'genius': {
-            'Authorization':  f'Bearer {self.TOKENS["genius"]}'},
-            'spotify': {'Authorization':  f'Bearer {self.TOKENS["spotify"]}',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'}}
-
-        #location of where to save album cover art and lyrics
-        self.ALBUM_PATH = os.environ['LYRICS_ALBUM']
         #location of lyrics for currently playing song
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
+        self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
+        self.JSON_PATH = os.path.join(self.BASE_PATH, "json")
+        #URL of API
+        self.BASE_URL = {'genius': 'https://api.genius.com/search',
+                         'spotify': 'https://api.spotify.com/v1/me/player'}
+        #location of where to save album cover art and lyrics
+        self.ALBUM_PATH = os.environ['LYRICS_ALBUM']
+        #headers for each API
+        self.cache()
+        self.HEADERS = {
+            'genius': {
+                'Authorization':  f'Bearer {os.environ["LYRICS_GENIUS_TOKEN"]}'},
+            'spotify': {
+                'Authorization':  f'Bearer {self.access_token}',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }
+
         # interval to make requests to API
         self.sleep = args.interval
         #call to main function
