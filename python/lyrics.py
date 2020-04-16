@@ -136,9 +136,9 @@ class Lyrics:
                     print('Not listening to anything at the moment.', end='\r')
                 time.sleep(self.sleep)
 
-            elif response.status_code == 429:
+            elif response.status_code == 429:  # Too many requests
                 retry = response.headers["Retry-After"]
-                print(f'Way too many requests. Sleeping for {retry} seconds.')
+                print(f'Too many requests. Sleeping for {retry} seconds.')
                 self.sleep += 1
 
             elif response.status_code == 401:  # Unauthorized
