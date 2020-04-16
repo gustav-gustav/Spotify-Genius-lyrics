@@ -17,7 +17,16 @@ from formatters import char_remover
 
 
 class Lyrics:
+    '''
+    Class Api that gets lyrics for the currently playing song on spotify via the
+    spotify api and the genius api.
+    '''
     def __init__(self):
+        '''
+        Sets functionality based on argparse arguments.\n
+        Defines instance variables via os.environ to aid the api requests
+        and the Spotify Authorization flow
+        '''
         #argparse stuff
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', dest='web', action="store_true", default=False)
@@ -73,6 +82,10 @@ class Lyrics:
         self.main()
 
     def main(self):
+        '''
+        Main loop. Circles through getting results from spotify api and comparing the currently playing song to the latest song fetched.\n
+        If it is the same, doesn't gets the lyrics. If the song is different than the last one, fetchces the lyrics from the genius api.
+        '''
         #the program consists of looping through this main function
         while True:
             try:
@@ -88,49 +101,49 @@ class Lyrics:
                 else:
                     #call to genius api
                     self.genius()
-            except AttributeError:
-                pass
             except KeyboardInterrupt:
                 break
+            except AttributeError as e:
+                if 'HEAD' in e.args[0]:
+                    pass
+                else:
+                    raise e
             except Exception as e:
                 print(e)
 
     # @conditional_decorator(Timer, 'debug')
     def spotify(self):
+        ''''''
         #request to spotify API | look for scopes in the self.HEADERS
         response = requests.get(
             self.BASE_URL['spotify'], headers=self.HEADERS['spotify'])
-        #if nothing is playing the loop goes back to the self.main()
-        if response.status_code == 204:
+
+        if response.status_code == 200:  # OK
+            # try:
+            self.js = response.json()
+            #writes json to a file
+            #note that this is required for other functionality
+            self.serialize('spotify', self.js)
+            #sets current variables from the song
+            self.song = self.js['item']['name']
+            self.artist = self.js['item']['artists'][0]['name']
+            self.album = self.js['item']['album']['name']
+            self.album_dir = char_remover(f'{self.album} - {self.artist}', replacer='x')
+            self.HEAD = f'{self.song} - {self.artist}'
+
+        #if nothing is playing the loop goes back to self.main()
+        elif response.status_code == 204:  # No content
             if self.CONSOLE:
                 print('Not listening to anything at the moment.', end='\r')
             time.sleep(self.sleep)
-        #if response.status_code == 200 OK
+
+        elif response.status_code == 401:  # Unauthorized
+            #call to the spotipy token handler
+            self.authenticate()
+
         else:
-            try:
-                self.js = response.json()
-                #writes json to a file
-                #note that this is required for other functionality
-                self.serialize('spotify', self.js)
-                #sets current variables from the song
-                self.song = self.js['item']['name']
-                self.artist = self.js['item']['artists'][0]['name']
-                self.album = self.js['item']['album']['name']
-                self.album_dir = char_remover(f'{self.album} - {self.artist}', replacer='x')
-                self.HEAD = f'{self.song} - {self.artist}'
-
-            except KeyError:
-                if self.CONSOLE:
-                    if self.debug:
-                        #whole json response
-                        print(response.json())
-                    else:
-                        #prettyfied
-                        #will mostly tell that the access token has expired
-                        print(response.json()['error']['message'])
-
-                #call to the spotipy token handler
-                self.authenticate()
+            print(f"Unhandled status code {response.status_code}")
+            response.raise_for_status()
 
     # @conditional_decorator(Timer, 'debug')
     def genius(self):
@@ -257,19 +270,12 @@ class Lyrics:
     def access_token(self):
         #the .cache-* is created by the spotipy token handler
         #it contains the access_token, refresh_token and scope
-        try:
-            cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
-            #loads the cache
-            with io.open(cache_file, 'r') as f:
-                cache = json.load(f)
-            #sets the access_token
-            return cache['access_token']
-
-        except KeyError as e:
-            if self.debug:
-                print(e)
-                self.authenticate()
-                return self.access_token
+        cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
+        #loads the cache
+        with io.open(cache_file, 'r') as f:
+            cache = json.load(f)
+        #sets the access_token
+        return cache['access_token']
 
     @access_token.setter
     def access_token(self, token):
@@ -277,7 +283,7 @@ class Lyrics:
         self.HEADERS["spotify"]["Authorization"] = f'Bearer {token}'
 
     def authenticate(self):
-        #calls for spotipy function that hadles API tokens and stores them into a json cache file
+        '''calls for spotipy function that hadles API tokens and stores them into a json cache file'''
         try:
             self.access_token = util.prompt_for_user_token(self.USERNAME, self.SCOPE, self.CLIENT_ID, self.CLIENT_SECRET, self.REDIRECT_URI, cache_path=self.CACHE_PATH)
             self.spotifyObject = spotipy.Spotify(auth=self.access_token)
