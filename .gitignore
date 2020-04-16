@@ -1,7 +1,8 @@
 /python/__pycache__/
-python/img_downloader.py
-python/test.py
-python/auth.py
+/python/img_downloader.py
+/python/test.py
+/python/auth.py
+/python/misc.py
 /__pycache__/
 /.vscode/
 /json/spotify.json

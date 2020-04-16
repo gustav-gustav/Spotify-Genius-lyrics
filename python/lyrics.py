@@ -8,14 +8,16 @@ import sys
 import glob
 import shutil
 import argparse
+import spotipy
+import spotipy.util as util
 # import decorators
 from decorators import ResponseTimer
-#image downloader, spotipy token handler, special characters remover
-from misc import Auth, char_remover
+# import char_remover
+from formatters import char_remover
+
 
 class Lyrics:
-    def __init__(self, decorator=True):
-        #call to Auth() to grab spotifyObject
+    def __init__(self):
         #argparse stuff
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', dest='web', action="store_true", default=False)
@@ -29,23 +31,33 @@ class Lyrics:
         #debug bool
         self.debug = args.debug
         #testing logging functions
-        if self.debug and decorator:
+        if self.debug:
             requests.get = ResponseTimer(requests.get)
-        # self.spotifyObject = Auth(debug=self.debug).spotifyObject
         #base path set on environment variable (multi-platform)
         self.BASE_PATH = os.environ['LYRICS_PATH']
+        self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
+        self.JSON_PATH = os.path.join(self.BASE_PATH, "json")
         #location of lyrics for currently playing song
         self.LYRICS_FILE = 'lyrics.txt'
         self.FULL_LYRICS_PATH = os.path.join(self.BASE_PATH, self.LYRICS_FILE)
-        self.PYTHON_PATH = os.path.join(self.BASE_PATH , "python")
-        self.JSON_PATH = os.path.join(self.BASE_PATH, "json")
+        #location of where to save album cover art and lyrics
+        self.ALBUM_PATH = os.environ['LYRICS_ALBUM']
         #URL of API
         self.BASE_URL = {'genius': 'https://api.genius.com/search',
                          'spotify': 'https://api.spotify.com/v1/me/player'}
-        #location of where to save album cover art and lyrics
-        self.ALBUM_PATH = os.environ['LYRICS_ALBUM']
+        # Aythentication variables from environment
+        self.CLIENT_ID = os.environ['LYRICS_CLIENT_ID']
+        self.CLIENT_SECRET = os.environ['LYRICS_CLIENT_SECRET']
+        self.USERNAME = os.environ['LYRICS_USERNAME']
+        #callback URI set in your spotify app. see https://developer.spotify.com/dashboard/login
+        self.REDIRECT_URI = 'https://example.com/callback'
+        #token API
+        self.SPOTIFY_API = 'https://accounts.spotify.com/api/token'
+        #scope necessary
+        self.SCOPE = 'user-read-playback-state user-read-currently-playing'
+        #sets cache path
+        self.CACHE_PATH = os.path.join(self.JSON_PATH, f".cache-{self.USERNAME}")
         #headers for each API
-        self.cache()
         self.HEADERS = {
             'genius': {
                 'Authorization':  f'Bearer {os.environ["LYRICS_GENIUS_TOKEN"]}'},
@@ -55,7 +67,6 @@ class Lyrics:
                 'Content-Type': 'application/json'
             }
         }
-
         # interval to make requests to API
         self.sleep = args.interval
         #call to main function
@@ -80,7 +91,7 @@ class Lyrics:
             except AttributeError:
                 pass
             except KeyboardInterrupt:
-                sys.exit()
+                break
             except Exception as e:
                 print(e)
 
@@ -119,10 +130,7 @@ class Lyrics:
                         print(response.json()['error']['message'])
 
                 #call to the spotipy token handler
-                Auth()
-                #calls for __init__() for the token to be updated by self.cache()
-                #update self.TOKENS and self. HEADERS
-                self.__init__(decorator=False)
+                self.authenticate()
 
     # @conditional_decorator(Timer, 'debug')
     def genius(self):
@@ -216,7 +224,6 @@ class Lyrics:
         height = self.js["item"]["album"]["images"][0]["height"]
         width = self.js["item"]["album"]["images"][0]["width"]
         url = self.js["item"]["album"]["images"][0]["url"]
-
         #sets filename
         filename = char_remover(
             f"{artist}_{name}_{height}x{width}.jpg".replace(' ', '_'), replacer='x')
@@ -234,23 +241,6 @@ class Lyrics:
                     #uses shutil to pipe the response to a file
                     shutil.copyfileobj(response.raw, out_file)
 
-    def cache(self):
-        #the .cache-* is created by the spotipy token handler
-        #it contains the access_token, refresh_token and scope
-        try:
-            cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
-            #loads the cache
-            with io.open(cache_file, 'r') as f:
-                cache = json.load(f)
-            #sets the access_token
-            self.access_token = cache['access_token']
-
-        except KeyError as e:
-            if self.debug:
-                print(e)
-                Auth(debug=self.debug)
-                self.cache()
-
     def writer(self):
         with io.open(self.FULL_LYRICS_PATH, 'w', encoding='utf-8') as f:
             f.write(self.HEAD)
@@ -262,6 +252,43 @@ class Lyrics:
             path = os.path.join(self.JSON_PATH, f'{filename}.json')
             with io.open(path, 'w', encoding='utf-8') as f:
                 json.dump(js, f, indent=2)
+
+    @property
+    def access_token(self):
+        #the .cache-* is created by the spotipy token handler
+        #it contains the access_token, refresh_token and scope
+        try:
+            cache_file = glob.glob(os.path.join(self.JSON_PATH, ".cache*"))[0]
+            #loads the cache
+            with io.open(cache_file, 'r') as f:
+                cache = json.load(f)
+            #sets the access_token
+            return cache['access_token']
+
+        except KeyError as e:
+            if self.debug:
+                print(e)
+                self.authenticate()
+                return self.access_token
+
+    @access_token.setter
+    def access_token(self, token):
+        self._access_token = token
+        self.HEADERS["spotify"]["Authorization"] = f'Bearer {token}'
+
+    def authenticate(self):
+        #calls for spotipy function that hadles API tokens and stores them into a json cache file
+        try:
+            self.access_token = util.prompt_for_user_token(self.USERNAME, self.SCOPE, self.CLIENT_ID, self.CLIENT_SECRET, self.REDIRECT_URI, cache_path=self.CACHE_PATH)
+            self.spotifyObject = spotipy.Spotify(auth=self.access_token)
+            if self.debug:
+                print('Authorized', end='\r')
+
+        except Exception as e:
+            if self.debug:
+                print(e)
+            os.remove(self.CACHE_PATH)
+            self.authenticate()
 
 
 if __name__ == '__main__':
