@@ -136,6 +136,11 @@ class Lyrics:
                     print('Not listening to anything at the moment.', end='\r')
                 time.sleep(self.sleep)
 
+            elif response.status_code == 429:
+                retry = response.headers["Retry-After"]
+                print(f'Way too many requests. Sleeping for {retry} seconds.')
+                self.sleep += 1
+
             elif response.status_code == 401:  # Unauthorized
                 #call to the spotipy token handler
                 self.authenticate()
