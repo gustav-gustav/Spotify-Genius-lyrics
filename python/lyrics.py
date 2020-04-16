@@ -33,10 +33,7 @@ class Lyrics:
         parser.add_argument('--debug', '-d', dest='debug', action="store_true", default=False)
         parser.add_argument('--interval, -i', dest='interval', action='store', type=int, default=5)
         args = parser.parse_args()
-        if args.web:
-            self.CONSOLE = False
-        else:
-            self.CONSOLE = True
+        self.CONSOLE = False if args.web else True
         #debug bool
         self.debug = args.debug
         #testing logging functions
@@ -184,7 +181,6 @@ class Lyrics:
         #writes the lyrics to a file
         self.writer(self.FULL_LYRICS_PATH)
 
-    # @conditional_decorator(Timer, 'debug')
     def scraper(self):
         '''Scrapes the url searching for <div ... class_="lyrics" ... >\n'''
         #this print has  to be this long so it erases the genius print
