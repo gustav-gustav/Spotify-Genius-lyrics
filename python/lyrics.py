@@ -111,7 +111,6 @@ class Lyrics:
             except Exception as e:
                 print(e)
 
-    # @conditional_decorator(Timer, 'debug')
     def spotify(self):
         '''
         Interface for Spotify Api.\n
@@ -148,7 +147,6 @@ class Lyrics:
                 print(f"Unhandled status code {response.status_code}")  # Unhandled
                 response.raise_for_status()
 
-    # @conditional_decorator(Timer, 'debug')
     def genius(self):
         '''
         Interface for Genius Api.\n
@@ -188,7 +186,7 @@ class Lyrics:
 
     # @conditional_decorator(Timer, 'debug')
     def scraper(self):
-        '''Scrapes the url searching for <div ... class_="lyrics" ... >'''
+        '''Scrapes the url searching for <div ... class_="lyrics" ... >\n'''
         #this print has  to be this long so it erases the genius print
         print('retrieving lyrics...                          ', end="\r")
         page = requests.get(self.genius_url)
@@ -241,8 +239,10 @@ class Lyrics:
         self.downloader(full_album_dir)
 
     def downloader(self, album_path):
-        '''Download's album covers from the current song if it hasn't been downloaded yet.\n
-        Gets the image url from self.json set in self.spotify()\n'''
+        '''
+        Download's album covers from the current song if it hasn't been downloaded yet.\n
+        Gets the image url from self.json set in self.spotify()\n
+        '''
         #sets variables related to the song
         artist = self.js["item"]["album"]["artists"][0]["name"]
         name = self.js["item"]["album"]["name"]
@@ -267,8 +267,10 @@ class Lyrics:
                     shutil.copyfileobj(response.raw, out_file)
 
     def writer(self, path):
-        '''Writes "{song's name} {song's artist}" as title,\n
-        Then writes the lyrics.'''
+        '''
+        Writes "{song's name} {song's artist}" as title,\n
+        Then writes the lyrics.
+        '''
         with io.open(path, 'w', encoding='utf-8') as f:
             f.write(self.HEAD)
             f.write(self.LYRICS)
