@@ -60,7 +60,7 @@ class Lyrics:
         #token API
         self.SPOTIFY_API = 'https://accounts.spotify.com/api/token'
         #scope necessary
-        self.SCOPE = 'user-read-playback-state user-read-currently-playing'
+        self.SCOPE = 'user-read-playback-state user-read-currently-playing user-library-read'
         #sets cache path
         self.CACHE_PATH = os.path.join(self.JSON_PATH, f".cache-{self.USERNAME}")
         #headers for each API
@@ -268,10 +268,7 @@ class Lyrics:
                     shutil.copyfileobj(response.raw, out_file)
 
     def writer(self, path):
-        '''
-        Writes "{song's name} {song's artist}" as title,\n
-        Then writes the lyrics.
-        '''
+        '''Writes "{song's name} {song's artist}" as title, then writes the lyrics.'''
         with io.open(path, 'w', encoding='utf-8') as f:
             f.write(self.HEAD)
             f.write(self.LYRICS)
@@ -285,15 +282,27 @@ class Lyrics:
 
     @property
     def access_token(self):
-        '''When first initialized in self.HEADERS, gets the token from the cache file'''
-        #the .cache-* is created by the spotipy token handler
-        #it contains the access_token, refresh_token and scope
-        cache_file = glob.glob(self.CACHE_PATH)[0]
-        #loads the cache
-        with io.open(cache_file, 'r') as f:
-            cache = json.load(f)
-        #sets the access_token
-        return cache['access_token']
+        '''
+        When first initialized in self.HEADERS, gets the token from the cache file.\n
+        If there is no file, calls self.authenticate(), which creates it and sets self._access_token
+        '''
+        try:
+            #the .cache-* is created by the spotipy token handler
+            #it contains the access_token, refresh_token and scope
+            cache_file = glob.glob(self.CACHE_PATH)[0]
+            #loads the cache
+            with io.open(cache_file, 'r') as f:
+                cache = json.load(f)
+            #sets the access_token
+            return cache['access_token']
+
+        except IndexError as e:
+            print(e)
+            self.authenticate()
+            return self._access_token
+
+        except Exception as e:
+            raise e
 
     @access_token.setter
     def access_token(self, token):
@@ -302,18 +311,11 @@ class Lyrics:
         self.HEADERS["spotify"]["Authorization"] = f'Bearer {token}'
 
     def authenticate(self):
-        '''calls for spotipy function that hadles API tokens and stores them into a json cache file'''
-        try:
-            self.access_token = util.prompt_for_user_token(self.USERNAME, self.SCOPE, self.CLIENT_ID, self.CLIENT_SECRET, self.REDIRECT_URI, cache_path=self.CACHE_PATH)
-            self.spotifyObject = spotipy.Spotify(auth=self.access_token)
-            if self.debug:
-                print('Authorized', end='\r')
-
-        except Exception as e:
-            if self.debug:
-                print(e)
-            os.remove(self.CACHE_PATH)
-            self.authenticate()
+        '''Calls for spotipy function that hadles API tokens and stores them into a json cache file'''
+        self.access_token = util.prompt_for_user_token(self.USERNAME, self.SCOPE, self.CLIENT_ID, self.CLIENT_SECRET, self.REDIRECT_URI, cache_path=self.CACHE_PATH)
+        self.spotifyObject = spotipy.Spotify(auth=self.access_token)
+        # if self.debug:
+        print('Authorized', end='\r')
 
 
 if __name__ == '__main__':
