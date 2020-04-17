@@ -297,7 +297,6 @@ class Lyrics:
             return cache['access_token']
 
         except IndexError as e:
-            print(e)
             self.authenticate()
             return self._access_token
 
