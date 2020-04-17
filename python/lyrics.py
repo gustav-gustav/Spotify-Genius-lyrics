@@ -105,8 +105,6 @@ class Lyrics:
                     raise e
             except KeyboardInterrupt:
                 break
-            except Exception as e:
-                print(e)
 
     def spotify(self):
         '''
