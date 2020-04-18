@@ -31,7 +31,7 @@ class Lyrics:
         parser = argparse.ArgumentParser()
         parser.add_argument('--web', '-w', dest='web', action="store_true", default=False)
         parser.add_argument('--debug', '-d', dest='debug', action="store_true", default=False)
-        parser.add_argument('--interval, -i', dest='interval', action='store', type=int, default=5)
+        parser.add_argument('--interval, -i', dest='interval', action='store', type=float, default=5)
         args = parser.parse_args()
         self.CONSOLE = False if args.web else True
         #debug bool
